@@ -6,4 +6,10 @@ class SonarScanner(private val report: List<Int>) {
         val current = depths[1]
         if (current > last) acc + 1 else acc
     }
+
+    fun sweepWindowed(size: Int): Int = report.windowed(size * 2).fold(0) { acc, depths ->
+        val last = depths.subList(0, 1).sum()
+        val current = depths.subList(3, 5).sum()
+        if (current > last) acc + 1 else acc
+    }
 }

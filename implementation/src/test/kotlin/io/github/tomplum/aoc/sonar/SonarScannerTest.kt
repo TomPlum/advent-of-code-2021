@@ -7,9 +7,16 @@ import org.junit.jupiter.api.Test
 
 class SonarScannerTest {
     @Test
-    fun example() {
+    fun examplePartOne() {
         val input = TestInputReader.read<Int>("/day1/example.txt").value
         val scanner = SonarScanner(input)
         assertThat(scanner.sweep()).isEqualTo(7)
+    }
+
+    @Test
+    fun examplePartTwo() {
+        val input = TestInputReader.read<Int>("/day1/example.txt").value
+        val scanner = SonarScanner(input)
+        assertThat(scanner.sweepWindowed(3)).isEqualTo(5)
     }
 }
