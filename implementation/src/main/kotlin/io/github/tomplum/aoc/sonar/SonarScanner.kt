@@ -7,9 +7,9 @@ class SonarScanner(private val report: List<Int>) {
         if (current > last) acc + 1 else acc
     }
 
-    fun sweepWindowed(size: Int): Int = report.windowed(size * 2).fold(0) { acc, depths ->
-        val last = depths.subList(0, 1).sum()
-        val current = depths.subList(3, 5).sum()
+    fun sweepWindowed(size: Int): Int = report.windowed(size + 1).fold(0) { acc, depths ->
+        val last = depths.subList(0, 3).sum()
+        val current = depths.subList(1, 4).sum()
         if (current > last) acc + 1 else acc
     }
 }
