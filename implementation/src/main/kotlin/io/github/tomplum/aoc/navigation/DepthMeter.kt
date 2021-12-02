@@ -12,6 +12,19 @@ class DepthMeter(val course: List<String>) {
                 else -> throw IllegalArgumentException("Invalid Direction [$${values[0]}]")
             }
         }
+
+        var horizontal = 0
+        var depth = 0
+
+        directives.forEach { directive ->
+            when(directive.direction) {
+                Direction.FORWARD -> horizontal += directive.distance
+                Direction.DOWN -> depth += directive.distance
+                Direction.UP -> depth -= directive.distance
+            }
+        }
+
+        return PositionReport(horizontal, depth)
     }
 
 }
