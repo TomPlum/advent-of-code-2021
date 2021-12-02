@@ -12,13 +12,13 @@ class DepthMeterTest {
     fun examplePartOne() {
         val course = TestInputReader.read<String>("/day2/example.txt").value
         val report = DepthMeter(course).calculateCourseDestination(NaiveNavigation())
-        assertThat(report.depth * report.horizontal).isEqualTo(150)
+        assertThat(report.getUnifiedValue()).isEqualTo(150)
     }
 
     @Test
     fun examplePartTwo() {
         val course = TestInputReader.read<String>("/day2/example.txt").value
         val report = DepthMeter(course).calculateCourseDestination(ImprovedNavigation())
-        assertThat(report.depth * report.horizontal).isEqualTo(900)
+        assertThat(report.getUnifiedValue()).isEqualTo(900)
     }
 }

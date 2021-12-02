@@ -9,16 +9,17 @@ import io.github.tomplum.libs.solutions.Solution
 
 class Day2 : Solution<Int, Int> {
     private val course = InputReader.read<String>(Day(2)).value
+    private val depthMeter = DepthMeter(course)
 
     override fun part1(): Int {
         val strategy = NaiveNavigation()
-        val report = DepthMeter(course).calculateCourseDestination(strategy)
-        return report.depth * report.horizontal
+        val report = depthMeter.calculateCourseDestination(strategy)
+        return report.getUnifiedValue()
     }
 
     override fun part2(): Int {
         val strategy = ImprovedNavigation()
-        val report = DepthMeter(course).calculateCourseDestination(strategy)
-        return report.depth * report.horizontal
+        val report = depthMeter.calculateCourseDestination(strategy)
+        return report.getUnifiedValue()
     }
 }
