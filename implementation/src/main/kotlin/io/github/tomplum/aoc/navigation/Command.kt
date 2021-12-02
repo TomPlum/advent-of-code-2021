@@ -1,15 +1,15 @@
 package io.github.tomplum.aoc.navigation
 
-data class Directive(val direction: Direction, val distance: Int) {
+data class Command(val direction: Direction, val distance: Int) {
     companion object {
-        fun fromString(value: String): Directive {
+        fun fromString(value: String): Command {
             val values = value.split(" ")
             val direction = values[0]
             val distance = values[1].toInt()
             return when(direction) {
-                "forward" ->  Directive(Direction.FORWARD, distance)
-                "down" ->  Directive(Direction.DOWN, distance)
-                "up" ->  Directive(Direction.UP, distance)
+                "forward" ->  Command(Direction.FORWARD, distance)
+                "down" ->  Command(Direction.DOWN, distance)
+                "up" ->  Command(Direction.UP, distance)
                 else -> throw IllegalArgumentException("Invalid Direction [$$direction]")
             }
         }
