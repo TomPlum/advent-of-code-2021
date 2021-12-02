@@ -40,7 +40,7 @@ tests in the `common`, `implementation` and `solutions` Gradle sub-projects as w
 | Day | Part 1 Answer | Avg Time | Part 2 Answer | Avg Time | Documentation               |
 |-----|---------------|----------|---------------|----------|-----------------------------|
 | 01  | 1624          | 9ms      | 1653          | 4ms      | [Sonar Sweep](docs/DAY1.MD) |
-| 02  | -             | -        | -             | -        | [](docs/DAY2.MD)            |
+| 02  | 1427868       | 7ms      | 1568138742    | 2ms      | [Dive!](docs/DAY2.MD)       |
 | 03  | -             | -        | -             | -        | [](docs/DAY3.MD)            |
 | 04  | -             | -        | -             | -        | [](docs/DAY4.MD)            |
 | 05  | -             | -        | -             | -        | [](docs/DAY5.MD)            |
