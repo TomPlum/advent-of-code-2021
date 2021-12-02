@@ -7,9 +7,16 @@ import org.junit.jupiter.api.Test
 
 class DepthMeterTest {
     @Test
-    fun exampleOne() {
+    fun examplePartOne() {
         val course = TestInputReader.read<String>("/day2/example.txt").value
         val report = DepthMeter(course).calculateCourseDestination()
         assertThat(report.depth * report.horizontal).isEqualTo(150)
+    }
+
+    @Test
+    fun examplePartTwo() {
+        val course = TestInputReader.read<String>("/day2/example.txt").value
+        val report = DepthMeter(course).calculateCourseDestination2()
+        assertThat(report.depth * report.horizontal).isEqualTo(900)
     }
 }
