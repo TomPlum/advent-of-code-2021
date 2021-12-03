@@ -1,15 +1,15 @@
-package io.github.tomplum.aoc.power
+package io.github.tomplum.aoc.report
 
-class PowerConsumption(val report: List<String>) {
-    fun doThing(): Int {
-        val values: MutableMap<Int, String> = mutableMapOf()
-        report.forEach { row ->
+class DiagnosticReport(private val data: List<String>) {
+    fun calculatePowerConsumption(): Int {
+        val vertical: MutableMap<Int, String> = mutableMapOf()
+        data.forEach { row ->
             row.forEachIndexed { index, value ->
-                values[index] = values.getOrDefault(index, "") + value
+                vertical[index] = vertical.getOrDefault(index, "") + value
             }
         }
 
-        val numbers = values.values.map { it.map { it.toString().toInt() } }
+        val numbers = vertical.values.map { it.map { it.toString().toInt() } }
 
         val mostCommon = numbers.map { values ->
             if (values.count { it == 0 } > values.count { it == 1 }) {
@@ -34,7 +34,7 @@ class PowerConsumption(val report: List<String>) {
     }
 
     fun calculateLifeSupportRating(): Int {
-        val numbers = report.map { row -> row.map { it.toString().toInt() } }
+        val numbers = data.map { row -> row.map { it.toString().toInt() } }
         val ogr = Integer.parseInt(getOxygenGeneratorRating(0, numbers).joinToString(""), 2)
         val co2 = Integer.parseInt(getCO2ScrubberRating(0, numbers).joinToString(""), 2)
         return ogr * co2
@@ -55,7 +55,7 @@ class PowerConsumption(val report: List<String>) {
         val mostCommon = if (searchValue.count { it == 0 } <= searchValue.count { it == 1 }) 0 else 1
         val oRatingNumbers = numbers.filter { it[i] == mostCommon }
         if (oRatingNumbers.size == 1) {
-            return numbers.filter { it[i] == mostCommon }.first()
+            return numbers.first { it[i] == mostCommon }
         }
         return getCO2ScrubberRating(i + 1, oRatingNumbers)
     }
