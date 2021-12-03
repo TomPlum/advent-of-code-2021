@@ -35,28 +35,32 @@ class DiagnosticReport(private val data: List<String>) {
 
     fun calculateLifeSupportRating(): Int {
         val numbers = data.map { row -> row.map { it.toString().toInt() } }
-        val ogr = Integer.parseInt(getOxygenGeneratorRating(0, numbers).joinToString(""), 2)
-        val co2 = Integer.parseInt(getCO2ScrubberRating(0, numbers).joinToString(""), 2)
+        val ogr = Integer.parseInt(getOxygenGeneratorRating(numbers).joinToString(""), 2)
+        val co2 = Integer.parseInt(getCO2ScrubberRating(numbers).joinToString(""), 2)
         return ogr * co2
     }
 
-    private fun getOxygenGeneratorRating(i: Int, numbers: List<List<Int>>): List<Int> {
-        val searchValue = numbers.map { it[i] }
-        val mostCommon = if (searchValue.count { it == 0 } > searchValue.count { it == 1 }) 0 else 1
-        val oRatingNumbers = numbers.filter { it[i] == mostCommon }
-        if (oRatingNumbers.size == 1) {
-            return oRatingNumbers.first()
+    private fun getOxygenGeneratorRating(numbers: List<List<Int>>): List<Int> {
+        val commonFunction = { number: List<Int> ->
+            if (number.count { it == 0 } > number.count { it == 1 }) 0 else 1
         }
-        return getOxygenGeneratorRating(i + 1, oRatingNumbers)
+        return findRatingValue(commonFunction, numbers)
     }
 
-    private fun getCO2ScrubberRating(i: Int, numbers: List<List<Int>>): List<Int> {
+    private fun getCO2ScrubberRating(numbers: List<List<Int>>): List<Int> {
+        val commonFunction = { number: List<Int> ->
+            if (number.count { it == 0 } <= number.count { it == 1 }) 0 else 1
+        }
+        return findRatingValue(commonFunction, numbers)
+    }
+
+    private fun findRatingValue(commonFunction: (search: List<Int>) -> Int, numbers: List<List<Int>>, i: Int = 0): List<Int> {
         val searchValue = numbers.map { it[i] }
-        val mostCommon = if (searchValue.count { it == 0 } <= searchValue.count { it == 1 }) 0 else 1
-        val oRatingNumbers = numbers.filter { it[i] == mostCommon }
-        if (oRatingNumbers.size == 1) {
+        val mostCommon = commonFunction(searchValue)
+        val ratingNumbers = numbers.filter { it[i] == mostCommon }
+        if (ratingNumbers.size == 1) {
             return numbers.first { it[i] == mostCommon }
         }
-        return getCO2ScrubberRating(i + 1, oRatingNumbers)
+        return findRatingValue(commonFunction, ratingNumbers, i + 1)
     }
 }
