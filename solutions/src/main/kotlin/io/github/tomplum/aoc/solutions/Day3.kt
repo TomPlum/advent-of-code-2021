@@ -5,12 +5,12 @@ import io.github.tomplum.libs.input.Day
 import io.github.tomplum.libs.input.InputReader
 import io.github.tomplum.libs.solutions.Solution
 
-class Day3 : Solution<Int, Int> {
+class Day3 : Solution<Long, Int> {
 
     private val input = InputReader.read<String>(Day(3)).value
     private val diagnosticReport = DiagnosticReport(input)
 
-    override fun part1(): Int {
+    override fun part1(): Long {
         return diagnosticReport.calculatePowerConsumption()
     }
 

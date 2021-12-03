@@ -34,7 +34,7 @@ allprojects {
     dependencies {
         implementation(kotlin("stdlib-jdk8"))
         implementation(kotlin("reflect"))
-        implementation("io.github.tomplum:advent-of-code-libs:2.1.0")
+        implementation("io.github.tomplum:advent-of-code-libs:2.2.0")
     }
 
     tasks.withType<KotlinCompile> {
