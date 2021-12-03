@@ -13,4 +13,11 @@ class PowerConsumptionTest {
         val powerConsumption = PowerConsumption(input.value)
         assertThat(powerConsumption.doThing()).isEqualTo(198)
     }
+
+    @Test
+    fun examplePartTwo() {
+        val input = TestInputReader.read<String>("/day3/example.txt")
+        val powerConsumption = PowerConsumption(input.value)
+        assertThat(powerConsumption.calculateLifeSupportRating()).isEqualTo(230)
+    }
 }
