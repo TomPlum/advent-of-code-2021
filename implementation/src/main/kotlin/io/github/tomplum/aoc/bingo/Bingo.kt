@@ -2,12 +2,17 @@ package io.github.tomplum.aoc.bingo
 
 import io.github.tomplum.libs.logging.AdventLogger
 
-class Bingo(private val data: List<String>) {
-    fun play(): Int {
-        val order = getNumbers()
-        val boards = getBingoBoards()
+class Bingo(data: List<String>) {
 
-        order.forEach { number ->
+    private val numbers = data.first().trim().split(",").map { value -> value.toInt() }
+    private val boards = data
+        .drop(2)
+        .filterNot { value -> value == "" }
+        .chunked(5)
+        .mapIndexed { i, data -> BingoBoard.fromString(i + 1, data) }
+
+    fun playUntilFirstWinner(): Int {
+        numbers.forEach { number ->
             boards.forEach { board ->
                 board.drawNumber(number)
                 if (board.hasWinningState()) {
@@ -22,21 +27,18 @@ class Bingo(private val data: List<String>) {
     }
 
     fun playUntilLastWinner(): Int {
-        val order = getNumbers()
-        val boards = getBingoBoards()
-
         val winStates = mutableMapOf<Int, Boolean>()
         boards.forEach { board ->
             winStates[board.id] = false
         }
 
-        order.forEach { number ->
+        numbers.forEach { number ->
             boards.forEach { board ->
                 board.drawNumber(number)
                 if (board.hasWinningState()) {
                     winStates[board.id] = true
 
-                    if(winStates.values.all { it }) {
+                    if(winStates.values.all { hasWon -> hasWon }) {
                         return board.getUnMarkedNumbers().sum() * number
                     }
                 }
@@ -45,12 +47,4 @@ class Bingo(private val data: List<String>) {
 
         throw IllegalArgumentException("All numbers were drawn but nobody won!")
     }
-
-    private fun getNumbers() = data.first().trim().split(",").map { value -> value.toInt() }
-
-    private fun getBingoBoards() = data
-        .drop(2)
-        .filterNot { value -> value == "" }
-        .chunked(5)
-        .mapIndexed { i, data -> BingoBoard.fromString(i + 1, data) }
 }

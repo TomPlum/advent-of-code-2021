@@ -10,7 +10,7 @@ class BingoTest {
     fun examplePartOne() {
         val input = TestInputReader.read<String>("day4/example.txt").value
         val bingo = Bingo(input)
-        assertThat(bingo.play()).isEqualTo(4512)
+        assertThat(bingo.playUntilFirstWinner()).isEqualTo(4512)
     }
 
     @Test
