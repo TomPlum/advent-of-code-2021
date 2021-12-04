@@ -62,9 +62,9 @@ class BingoBoard(val id: Int) : AdventMap2D<BingoNumber>() {
             (xMin..xMax).joinToString(" ") { x ->
                 val tile = getTile(Point2D(x, y), BingoNumber(0))
                 if (tile.hasBeenDrawn) {
-                    "${"\u001B[32m"}$tile${"\u001B[0m"}"
+                    "${"\u001B[32m"}$tile${"\u001B[0m"}".padStart(2, ' ')
                 } else {
-                    tile.toString()
+                    tile.toString().padStart(2, ' ')
                 }
             }
         }.plus("\n")

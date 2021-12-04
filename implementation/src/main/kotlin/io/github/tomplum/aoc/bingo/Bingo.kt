@@ -1,5 +1,6 @@
 package io.github.tomplum.aoc.bingo
 
+import io.github.tomplum.libs.logging.AdventLogger
 import io.github.tomplum.libs.math.point.Point2D
 
 class Bingo(private val data: List<String>) {
@@ -11,7 +12,8 @@ class Bingo(private val data: List<String>) {
             boards.forEach { board ->
                 board.drawNumber(number)
                 if (board.hasWinningState()) {
-                    println(board)
+                    AdventLogger.info("Board ${board.id}: BINGO!")
+                    AdventLogger.info(board)
                     return board.getUnMarkedNumbers().sum() * number
                 }
             }

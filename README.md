@@ -42,7 +42,7 @@ tests in the `common`, `implementation` and `solutions` Gradle sub-projects as w
 | 01  | 1624          | 9ms      | 1653          | 4ms      | [Sonar Sweep](docs/DAY1.MD)       |
 | 02  | 1427868       | 7ms      | 1568138742    | 2ms      | [Dive!](docs/DAY2.MD)             |
 | 03  | 4160394       | 31ms     | 4125600       | 4ms      | [Binary Diagnostic](docs/DAY3.MD) |
-| 04  | -             | -        | -             | -        | [](docs/DAY4.MD)                  |
+| 04  | 32844         | 75ms     | 4920          | 66ms     | [Giant Squid](docs/DAY4.MD)       |
 | 05  | -             | -        | -             | -        | [](docs/DAY5.MD)                  |
 | 06  | -             | -        | -             | -        | [](docs/DAY6.MD)                  |
 | 07  | -             | -        | -             | -        | [](docs/DAY7.MD)                  |
