@@ -4,7 +4,7 @@ import io.github.tomplum.libs.math.map.AdventMap2D
 import io.github.tomplum.libs.math.point.Point2D
 import io.github.tomplum.libs.solutions.benchmark.report.coloured
 
-class BingoBoard : AdventMap2D<BingoNumber>() {
+class BingoBoard(val id: Int) : AdventMap2D<BingoNumber>() {
     fun addNumber(pos: Point2D, tile: BingoNumber) {
         addTile(pos, tile)
     }

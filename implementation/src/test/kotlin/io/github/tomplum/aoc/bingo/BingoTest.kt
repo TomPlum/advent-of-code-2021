@@ -12,4 +12,11 @@ class BingoTest {
         val bingo = Bingo(input)
         assertThat(bingo.play()).isEqualTo(4512)
     }
+
+    @Test
+    fun examplePartTwo() {
+        val input = TestInputReader.read<String>("day4/example.txt").value
+        val bingo = Bingo(input)
+        assertThat(bingo.playUntilLastWinner()).isEqualTo(1924)
+    }
 }
