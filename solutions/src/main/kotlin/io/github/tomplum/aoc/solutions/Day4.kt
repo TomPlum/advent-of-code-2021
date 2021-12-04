@@ -11,4 +11,10 @@ class Day4 : Solution<Int, Int> {
         val bingo = Bingo(input)
         return bingo.play()
     }
+
+    override fun part2(): Int {
+        val input = InputReader.read<String>(Day(4)).value
+        val bingo = Bingo(input)
+        return bingo.playUntilLastWinner()
+    }
 }
