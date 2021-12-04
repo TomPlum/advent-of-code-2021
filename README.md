@@ -26,10 +26,10 @@ Running [Solutions.kt](https://git.io/JII6v) will run the parts from all the com
 answers and runtimes in the console.
 
 ### Gradle Tasks
-| Task               | Description                                                                                       |
-|--------------------|---------------------------------------------------------------------------------------------------|
-| `test`             | Runs the unit tests with coverage for the `implementation`, `solutions` and `common` sub-projects.|
-| `detekt` 	      | Runs DeteKT with the custom configuration rules defined in detekt-config.yml.                     |
+| Task      | Description                                                                                        |
+|-----------|----------------------------------------------------------------------------------------------------|
+| `test`    | Runs the unit tests with coverage for the `implementation`, `solutions` and `common` sub-projects. |
+| `detekt`  | Runs DeteKT with the custom configuration rules defined in detekt-config.yml.                      |
 
 ### IntelliJ Run Configurations
 The `.run` directory contains XML configuration files from IntelliJ. Included are configurations for running the unit

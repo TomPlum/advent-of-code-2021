@@ -5,6 +5,24 @@ import io.github.tomplum.libs.math.point.Point2D
 import io.github.tomplum.libs.solutions.benchmark.report.coloured
 
 class BingoBoard(val id: Int) : AdventMap2D<BingoNumber>() {
+
+    companion object {
+        fun fromString(id: Int, data: List<String>): BingoBoard {
+            val board = BingoBoard(id)
+            var x = 0
+            var y = 0
+            data.forEach { row ->
+                row.split(" ").filterNot { it == "" }.forEach { col ->
+                    board.addNumber(Point2D(x, y), BingoNumber(col.trim().toInt()))
+                    x++
+                }
+                x = 0
+                y++
+            }
+            return board
+        }
+    }
+
     fun addNumber(pos: Point2D, tile: BingoNumber) {
         addTile(pos, tile)
     }

@@ -1,7 +1,6 @@
 package io.github.tomplum.aoc.bingo
 
 import io.github.tomplum.libs.logging.AdventLogger
-import io.github.tomplum.libs.math.point.Point2D
 
 class Bingo(private val data: List<String>) {
     fun play(): Int {
@@ -19,7 +18,7 @@ class Bingo(private val data: List<String>) {
             }
         }
 
-        return 0
+        throw IllegalArgumentException("All numbers were drawn but nobody won!")
     }
 
     fun playUntilLastWinner(): Int {
@@ -44,23 +43,14 @@ class Bingo(private val data: List<String>) {
             }
         }
 
-        return 0
+        throw IllegalArgumentException("All numbers were drawn but nobody won!")
     }
 
     private fun getNumbers() = data.first().trim().split(",").map { value -> value.toInt() }
 
-    private fun getBingoBoards() = data.drop(2).filterNot { it == "" }.chunked(5).mapIndexed { i, data ->
-        val board = BingoBoard(i + 1)
-        var x = 0
-        var y = 0
-        data.forEach { row ->
-            row.split(" ").filterNot { it == "" }.forEach { col ->
-                board.addNumber(Point2D(x, y), BingoNumber(col.trim().toInt()))
-                x++
-            }
-            x = 0
-            y++
-        }
-        board
-    }
+    private fun getBingoBoards() = data
+        .drop(2)
+        .filterNot { value -> value == "" }
+        .chunked(5)
+        .mapIndexed { i, data -> BingoBoard.fromString(i + 1, data) }
 }
