@@ -2,7 +2,6 @@ package io.github.tomplum.aoc.bingo
 
 import io.github.tomplum.libs.math.map.AdventMap2D
 import io.github.tomplum.libs.math.point.Point2D
-import io.github.tomplum.libs.solutions.benchmark.report.coloured
 
 class BingoBoard(val id: Int) : AdventMap2D<BingoNumber>() {
 
@@ -12,7 +11,7 @@ class BingoBoard(val id: Int) : AdventMap2D<BingoNumber>() {
             var x = 0
             var y = 0
             data.forEach { row ->
-                row.split(" ").filterNot { it == "" }.forEach { col ->
+                row.split(" ").filterNot { value -> value == "" }.forEach { col ->
                     board.addNumber(Point2D(x, y), BingoNumber(col.trim().toInt()))
                     x++
                 }
@@ -30,9 +29,9 @@ class BingoBoard(val id: Int) : AdventMap2D<BingoNumber>() {
     fun drawNumber(number: Int) {
         val matching = filterTiles { tile -> tile.number == number }
         if (matching.isNotEmpty()) {
-            val (pos, number) = matching.entries.first()
-            number.setHasBeenDrawn()
-            addNumber(pos, number)
+            val (pos, tile) = matching.entries.first()
+            tile.setHasBeenDrawn()
+            addNumber(pos, tile)
         }
     }
 
