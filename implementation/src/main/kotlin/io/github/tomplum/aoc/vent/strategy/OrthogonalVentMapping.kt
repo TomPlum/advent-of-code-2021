@@ -1,17 +1,21 @@
 package io.github.tomplum.aoc.vent.strategy
 
+import io.github.tomplum.aoc.vent.VentLine
 import io.github.tomplum.libs.math.Direction
 import io.github.tomplum.libs.math.point.Point2D
 
 class OrthogonalVentMapping : VentMappingStrategy() {
-    override fun scanLineSegment(start: Point2D, end: Point2D): List<Point2D> {
+    override fun scanVentLine(line: VentLine): List<Point2D> {
         val locations = mutableListOf<Point2D>()
 
-        val adjacent = AdjacentVentMapping().scanLineSegment(start, end)
+        val adjacent = AdjacentVentMapping().scanVentLine(line)
 
         if (adjacent.isNotEmpty()) {
             locations.addAll(adjacent)
         } else {
+            val start = line.getStartPosition()
+            val end = line.getEndPosition()
+
             if (start.x > end.x && start.y > end.y) {
                 locations.addAll(getPoints(start, end, Direction.BOTTOM_LEFT))
             } else if (start.x > end.x) {

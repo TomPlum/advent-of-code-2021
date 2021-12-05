@@ -5,18 +5,10 @@ import io.github.tomplum.libs.logging.AdventLogger
 import io.github.tomplum.libs.math.map.AdventMap2D
 import io.github.tomplum.libs.math.point.Point2D
 
-class OceanFloorMap(data: List<String>, mappingStrategy: VentMappingStrategy) : AdventMap2D<HydrothermalVent>() {
+class OceanFloorMap(lines: List<String>, mappingStrategy: VentMappingStrategy) : AdventMap2D<HydrothermalVent>() {
     init {
-        data.forEach { entry ->
-            AdventLogger.debug("Found line segment $entry\n")
-            val line = entry.split(" -> ")
-            val start = line[0].split(",").map { value -> value.toInt() }
-            val end = line[1].split(",").map { value -> value.toInt() }
-
-            val startPos = Point2D(start[0], start[1])
-            val endPos = Point2D(end[0], end[1])
-
-            val vents = mappingStrategy.scanLineSegment(startPos, endPos)
+        lines.map { data -> VentLine(data) }.forEach { line ->
+            val vents = mappingStrategy.scanVentLine(line)
             vents.forEach { position -> addVentLocation(position) }
         }
         AdventLogger.info(this)
