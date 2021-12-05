@@ -27,30 +27,34 @@ class OceanFloorMap(data: List<String>) : AdventMap2D<HydrothermalVent>() {
             } else {
                 if (startPos.x > endPos.x && startPos.y > endPos.y) {
                    var tracker = startPos
+                   addVentLocation(tracker)
                    while (tracker != endPos) {
-                       addVentLocation(tracker)
                        val next = tracker.shift(Direction.BOTTOM_LEFT)
+                       addVentLocation(next)
                        tracker = next
                    }
                 } else if (startPos.x > endPos.x && startPos.y < endPos.y) {
                     var tracker = startPos
+                    addVentLocation(tracker)
                     while (tracker != endPos) {
-                        addVentLocation(tracker)
                         val next = tracker.shift(Direction.TOP_LEFT)
+                        addVentLocation(next)
                         tracker = next
                     }
                 } else if (startPos.x < endPos.x && startPos.y > endPos.y) {
                     var tracker = startPos
+                    addVentLocation(tracker)
                     while (tracker != endPos) {
-                        addVentLocation(tracker)
                         val next = tracker.shift(Direction.BOTTOM_RIGHT)
+                        addVentLocation(next)
                         tracker = next
                     }
                 } else if (startPos.x < endPos.x && startPos.y < endPos.y) {
                     var tracker = startPos
+                    addVentLocation(tracker)
                     while (tracker != endPos) {
-                        addVentLocation(tracker)
                         val next = tracker.shift(Direction.TOP_RIGHT)
+                        addVentLocation(next)
                         tracker = next
                     }
                 }

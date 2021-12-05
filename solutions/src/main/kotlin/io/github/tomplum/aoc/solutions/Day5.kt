@@ -11,4 +11,10 @@ class Day5 : Solution<Int, Int> {
         val map = OceanFloorMap(input)
         return map.getDangerousVentCount()
     }
+
+    override fun part2(): Int {
+        val input = InputReader.read<String>(Day(5)).value
+        val map = OceanFloorMap(input)
+        return map.getDangerousVentCount()
+    }
 }
