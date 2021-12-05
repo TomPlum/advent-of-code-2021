@@ -1,6 +1,7 @@
 package io.github.tomplum.aoc.vent
 
 import io.github.tomplum.libs.logging.AdventLogger
+import io.github.tomplum.libs.math.Direction
 import io.github.tomplum.libs.math.map.AdventMap2D
 import io.github.tomplum.libs.math.point.Point2D
 
@@ -17,15 +18,41 @@ class OceanFloorMap(data: List<String>) : AdventMap2D<HydrothermalVent>() {
 
             if (startPos.x == endPos.x) {
                 (startPos.y.toward(endPos.y)).forEach { y ->
-                    AdventLogger.debug("Plotting (${startPos.x}, $y)")
                     addVentLocation(Point2D(startPos.x, y))
                 }
-            }
-
-            if (startPos.y == endPos.y) {
+            } else if (startPos.y == endPos.y) {
                 (startPos.x.toward(endPos.x)).forEach { x ->
-                    AdventLogger.debug("Plotting ($x, ${startPos.y})")
                     addVentLocation(Point2D(x, startPos.y))
+                }
+            } else {
+                if (startPos.x > endPos.x && startPos.y > endPos.y) {
+                   var tracker = startPos
+                   while (tracker != endPos) {
+                       addVentLocation(tracker)
+                       val next = tracker.shift(Direction.BOTTOM_LEFT)
+                       tracker = next
+                   }
+                } else if (startPos.x > endPos.x && startPos.y < endPos.y) {
+                    var tracker = startPos
+                    while (tracker != endPos) {
+                        addVentLocation(tracker)
+                        val next = tracker.shift(Direction.TOP_LEFT)
+                        tracker = next
+                    }
+                } else if (startPos.x < endPos.x && startPos.y > endPos.y) {
+                    var tracker = startPos
+                    while (tracker != endPos) {
+                        addVentLocation(tracker)
+                        val next = tracker.shift(Direction.BOTTOM_RIGHT)
+                        tracker = next
+                    }
+                } else if (startPos.x < endPos.x && startPos.y < endPos.y) {
+                    var tracker = startPos
+                    while (tracker != endPos) {
+                        addVentLocation(tracker)
+                        val next = tracker.shift(Direction.TOP_RIGHT)
+                        tracker = next
+                    }
                 }
             }
         }
@@ -37,6 +64,7 @@ class OceanFloorMap(data: List<String>) : AdventMap2D<HydrothermalVent>() {
     }
 
     private fun addVentLocation(pos: Point2D) {
+        AdventLogger.debug("Plotting $pos")
         val existing = filterPoints(setOf(pos))
         if (existing.isNotEmpty()) {
             val existingQuantity = existing.values.first().value

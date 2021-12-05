@@ -12,4 +12,11 @@ class OceanFloorMapTest {
         val map = OceanFloorMap(input)
         assertThat(map.getDangerousVentCount()).isEqualTo(5)
     }
+
+    @Test
+    fun examplePartTwo() {
+        val input = TestInputReader.read<String>("day5/example.txt").value
+        val map = OceanFloorMap(input)
+        assertThat(map.getDangerousVentCount()).isEqualTo(12)
+    }
 }
