@@ -3,8 +3,8 @@ package io.github.tomplum.aoc.vent.strategy
 import io.github.tomplum.libs.math.point.Point2D
 
 class AdjacentVentMapping : VentMappingStrategy() {
-    override fun scanLineSegment(start: Point2D, end: Point2D): Set<Point2D> {
-        val locations = mutableSetOf<Point2D>()
+    override fun scanLineSegment(start: Point2D, end: Point2D): List<Point2D> {
+        val locations = mutableListOf<Point2D>()
 
         if (start.x == end.x) {
             (start.y.toward(end.y)).forEach { y ->

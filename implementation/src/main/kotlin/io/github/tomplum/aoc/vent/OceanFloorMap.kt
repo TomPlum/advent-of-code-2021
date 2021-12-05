@@ -28,9 +28,8 @@ class OceanFloorMap(data: List<String>, mappingStrategy: VentMappingStrategy) : 
 
     private fun addVentLocation(pos: Point2D) {
         AdventLogger.debug("Plotting $pos")
-        val existing = filterPoints(setOf(pos))
-        if (existing.isNotEmpty()) {
-            val existingQuantity = existing.values.first().value
+        if (hasRecorded(pos)) {
+            val existingQuantity = getTile(pos).value
             addTile(pos, HydrothermalVent(existingQuantity + 1))
         } else {
             addTile(pos, HydrothermalVent(1))
