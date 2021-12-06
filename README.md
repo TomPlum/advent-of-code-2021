@@ -43,8 +43,8 @@ tests in the `common`, `implementation` and `solutions` Gradle sub-projects as w
 | 02  | 1427868       | 7ms      | 1568138742    | 2ms      | [Dive!](docs/DAY2.MD)                |
 | 03  | 4160394       | 31ms     | 4125600       | 4ms      | [Binary Diagnostic](docs/DAY3.MD)    |
 | 04  | 32844         | 75ms     | 4920          | 66ms     | [Giant Squid](docs/DAY4.MD)          |
-| 05  | 4421          | -        | 18674         | -        | [Hydrothermal Venture](docs/DAY5.MD) |
-| 06  | -             | -        | -             | -        | [](docs/DAY6.MD)                     |
+| 05  | 4421          | 676ms    | 18674         | 1s 496ms | [Hydrothermal Venture](docs/DAY5.MD) |
+| 06  | 372984        | 2ms      | 1681503251694 | 2ms      | [Lanternfish](docs/DAY6.MD)          |
 | 07  | -             | -        | -             | -        | [](docs/DAY7.MD)                     |
 | 08  | -             | -        | -             | -        | [](docs/DAY8.MD)                     |
 | 09  | -             | -        | -             | -        | [](docs/DAY9.MD)                     |
