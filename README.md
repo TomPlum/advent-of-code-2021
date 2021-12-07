@@ -37,33 +37,33 @@ tests in the `common`, `implementation` and `solutions` Gradle sub-projects as w
 
 ## Answer Table
 
-| Day | Part 1 Answer | Avg Time | Part 2 Answer | Avg Time | Documentation                        |
-|-----|---------------|----------|---------------|----------|--------------------------------------|
-| 01  | 1624          | 9ms      | 1653          | 4ms      | [Sonar Sweep](docs/DAY1.MD)          |
-| 02  | 1427868       | 7ms      | 1568138742    | 2ms      | [Dive!](docs/DAY2.MD)                |
-| 03  | 4160394       | 31ms     | 4125600       | 4ms      | [Binary Diagnostic](docs/DAY3.MD)    |
-| 04  | 32844         | 75ms     | 4920          | 66ms     | [Giant Squid](docs/DAY4.MD)          |
-| 05  | 4421          | 676ms    | 18674         | 1s 496ms | [Hydrothermal Venture](docs/DAY5.MD) |
-| 06  | 372984        | 2ms      | 1681503251694 | 2ms      | [Lanternfish](docs/DAY6.MD)          |
-| 07  | -             | -        | -             | -        | [](docs/DAY7.MD)                     |
-| 08  | -             | -        | -             | -        | [](docs/DAY8.MD)                     |
-| 09  | -             | -        | -             | -        | [](docs/DAY9.MD)                     |
-| 10  | -             | -        | -             | -        | [](docs/DAY10.MD)                    |
-| 11  | -             | -        | -             | -        | [](docs/DAY11.MD)                    |
-| 12  | -             | -        | -             | -        | [](docs/DAY12.MD)                    |
-| 13  | -             | -        | -             | -        | [](docs/DAY13.MD)                    |
-| 14  | -             | -        | -             | -        | [](docs/DAY14.MD)                    |
-| 15  | -             | -        | -             | -        | [](docs/DAY15.MD)                    |
-| 16  | -             | -        | -             | -        | [](docs/DAY16.MD)                    |
-| 17  | -             | -        | -             | -        | [](docs/DAY17.MD)                    |
-| 18  | -             | -        | -             | -        | [](docs/DAY18.MD)                    |
-| 19  | -             | -        | -             | -        | [](docs/DAY19.MD)                    |
-| 20  | -             | -        | -             | -        | [](docs/DAY20.MD)                    |
-| 21  | -             | -        | -             | -        | [](docs/DAY21.MD)                    |
-| 22  | -             | -        | -             | -        | [](docs/DAY22.MD)                    |
-| 23  | -             | -        | -             | -        | [](docs/DAY23.MD)                    |
-| 24  | -             | -        | -             | -        | [](docs/DAY24.MD)                    |
-| 25  | -             | -        | -             | -        | [](docs/DAY25.MD)                    |
+| Day | Part 1 Answer | Avg Time | Part 2 Answer | Avg Time | Documentation                           |
+|-----|---------------|----------|---------------|----------|-----------------------------------------|
+| 01  | 1624          | 9ms      | 1653          | 4ms      | [Sonar Sweep](docs/DAY1.MD)             |
+| 02  | 1427868       | 7ms      | 1568138742    | 2ms      | [Dive!](docs/DAY2.MD)                   |
+| 03  | 4160394       | 31ms     | 4125600       | 4ms      | [Binary Diagnostic](docs/DAY3.MD)       |
+| 04  | 32844         | 75ms     | 4920          | 66ms     | [Giant Squid](docs/DAY4.MD)             |
+| 05  | 4421          | 676ms    | 18674         | 1s 496ms | [Hydrothermal Venture](docs/DAY5.MD)    |
+| 06  | 372984        | 2ms      | 1681503251694 | 2ms      | [Lanternfish](docs/DAY6.MD)             |
+| 07  | 345035        | 23ms     | 97038163      | 59ms     | [The Treachery of Whales](docs/DAY7.MD) |
+| 08  | -             | -        | -             | -        | [](docs/DAY8.MD)                        |
+| 09  | -             | -        | -             | -        | [](docs/DAY9.MD)                        |
+| 10  | -             | -        | -             | -        | [](docs/DAY10.MD)                       |
+| 11  | -             | -        | -             | -        | [](docs/DAY11.MD)                       |
+| 12  | -             | -        | -             | -        | [](docs/DAY12.MD)                       |
+| 13  | -             | -        | -             | -        | [](docs/DAY13.MD)                       |
+| 14  | -             | -        | -             | -        | [](docs/DAY14.MD)                       |
+| 15  | -             | -        | -             | -        | [](docs/DAY15.MD)                       |
+| 16  | -             | -        | -             | -        | [](docs/DAY16.MD)                       |
+| 17  | -             | -        | -             | -        | [](docs/DAY17.MD)                       |
+| 18  | -             | -        | -             | -        | [](docs/DAY18.MD)                       |
+| 19  | -             | -        | -             | -        | [](docs/DAY19.MD)                       |
+| 20  | -             | -        | -             | -        | [](docs/DAY20.MD)                       |
+| 21  | -             | -        | -             | -        | [](docs/DAY21.MD)                       |
+| 22  | -             | -        | -             | -        | [](docs/DAY22.MD)                       |
+| 23  | -             | -        | -             | -        | [](docs/DAY23.MD)                       |
+| 24  | -             | -        | -             | -        | [](docs/DAY24.MD)                       |
+| 25  | -             | -        | -             | -        | [](docs/DAY25.MD)                       |
 
 Average Execution Time: 646ms \
 Total Execution Time: 15s 441ms \
