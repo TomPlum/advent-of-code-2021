@@ -8,15 +8,16 @@ import io.github.tomplum.libs.input.InputReader
 import io.github.tomplum.libs.solutions.Solution
 
 class Day7 : Solution<Int, Int> {
+    private val input = InputReader.read<String>(Day(7)).asSingleString()
+    private val aligner = HorizontalCrabAligner(input)
+
     override fun part1(): Int {
-        val input = InputReader.read<String>(Day(7)).asSingleString()
-        val aligner = HorizontalCrabAligner(input)
-        return aligner.calculateCheapestFuelCost(LinearFuelCost())
+        val strategy = LinearFuelCost()
+        return aligner.calculateCheapestFuelCost(strategy)
     }
 
     override fun part2(): Int {
-        val input = InputReader.read<String>(Day(7)).asSingleString()
-        val aligner = HorizontalCrabAligner(input)
-        return aligner.calculateCheapestFuelCost(IncrementalFuelCost())
+        val strategy = IncrementalFuelCost()
+        return aligner.calculateCheapestFuelCost(strategy)
     }
 }
