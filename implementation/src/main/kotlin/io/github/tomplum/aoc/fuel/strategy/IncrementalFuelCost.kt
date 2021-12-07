@@ -1,34 +1,13 @@
 package io.github.tomplum.aoc.fuel.strategy
 
-import io.github.tomplum.libs.logging.AdventLogger
 import kotlin.math.abs
+import kotlin.math.pow
 
 class IncrementalFuelCost : FuelCostStrategy {
-    override fun calculateCheapestHorizontalAlignment(positions: List<Int>): Int {
-        val posToCheck = (positions.minOrNull()!!..positions.maxOrNull()!!).map { value -> value }
-        var cheapest = Integer.MAX_VALUE
-        posToCheck.forEach { targetPos ->
-            val cost = positions.fold(0) { total, pos ->
-                val cost = getIncrementalFuelCost(abs(targetPos - pos))
-                AdventLogger.debug("Move from $targetPos to $pos: $cost fuel")
-                total + cost
-            }
-            AdventLogger.debug("[Total cost: $cost]\n")
-            if (cost < cheapest) {
-                cheapest = cost
-            }
-        }
-        AdventLogger.debug("[Cheapest cost: $cheapest]\n")
-        return cheapest
-    }
+    override fun calculateCheapestHorizontalAlignment(positions: List<Int>): Int =
+        (positions.minOrNull()!!..positions.maxOrNull()!!).map { value -> value }.minOfOrNull { target ->
+            positions.fold(0) { total, pos -> total + abs(target - pos).triangleNumber() }
+        } ?: 0
 
-    private fun getIncrementalFuelCost(distance: Int): Int {
-        var cost = 1
-        var total = 0
-        repeat(distance) {
-            total += cost
-            cost++
-        }
-        return total
-    }
+    private fun Int.triangleNumber() = ((this.toDouble().pow(2) + this) / 2).toInt()
 }
