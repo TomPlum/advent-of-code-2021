@@ -11,4 +11,10 @@ class Day7 : Solution<Int, Int> {
         val aligner = HorizontalCrabAligner(input)
         return aligner.calculateCheapestFuelCost()
     }
+
+    override fun part2(): Int {
+        val input = InputReader.read<String>(Day(7)).asSingleString()
+        val aligner = HorizontalCrabAligner(input)
+        return aligner.theSecondPart()
+    }
 }
