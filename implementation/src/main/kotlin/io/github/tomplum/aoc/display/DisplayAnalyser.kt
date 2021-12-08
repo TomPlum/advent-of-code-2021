@@ -27,70 +27,31 @@ class DisplayAnalyser(data: List<String>) {
         return sum
     }
 
-    fun getOutputValueSum(): Int {
-        val display = SevenSegmentDisplay()
+    fun getOutputValueSum(): Int = entries.sumOf { (signalPatterns, outputValues) ->
+        // We know 1, 4, 7 and 8 because they have unique numbers of segments per digit
+        val one = ONE.withMapping(signalPatterns.find { pattern ->  pattern.length == ONE.wires.size }!!)
+        val four = FOUR.withMapping(signalPatterns.find { pattern ->  pattern.length == FOUR.wires.size }!!)
+        val seven = SEVEN.withMapping(signalPatterns.find { pattern ->  pattern.length == SEVEN.wires.size }!!)
+        val eight = EIGHT.withMapping(signalPatterns.find { pattern ->  pattern.length == EIGHT.wires.size }!!)
 
-        return entries.sumOf { (signalPatterns, outputValues) ->
-            val one = signalPatterns.find { pattern ->  pattern.length == ONE.wires.size }!!
-            val four = signalPatterns.find { pattern ->  pattern.length == FOUR.wires.size }!!
-            val seven = signalPatterns.find { pattern ->  pattern.length == SEVEN.wires.size }!!
-            val eight = signalPatterns.find { pattern ->  pattern.length == EIGHT.wires.size }!!
+        // There are three numbers that require exactly 6 segments to be illuminated
+        val nine = NINE.withMapping(signalPatterns.filter { it.length == 6 }.find { pattern -> four.mapping.all { value -> value in pattern } }!!)
+        val zero = ZERO.withMapping(signalPatterns.filter { it.length == 6 }.find { pattern -> pattern != nine.toString() && one.mapping.all { value -> value in pattern } }!!)
+        val six = SIX.withMapping(signalPatterns.filter { it.length == 6 }.find { pattern -> pattern != nine.toString() && pattern != zero.toString() }!!)
 
-            val nine = signalPatterns.filter { it.length == 6 }.find { pattern -> four.all { value -> value in pattern } }!!
-            val zero = signalPatterns.filter { it.length == 6 }.find { pattern -> pattern != nine && one.all { value -> value in pattern } }
-            val six = signalPatterns.filter { it.length == 6 }.find { pattern -> pattern != nine && pattern != zero }
+        val three = THREE.withMapping(signalPatterns.filter { it.length == 5 }.find { pattern -> one.mapping.all { value -> value in pattern } }!!)
+        val five = FIVE.withMapping(signalPatterns.filter { it.length == 5 }.find { pattern -> pattern != three.toString() && pattern.all { value -> value in nine.mapping } }!!)
+        val two = TWO.withMapping(signalPatterns.filter { it.length == 5 }.find { pattern -> pattern != three.toString() && pattern != five.toString() }!!)
 
-            val three = signalPatterns.filter { it.length == 5 }.find { pattern -> one.all { value -> value in pattern } }
-            val five = signalPatterns.filter { it.length == 5 }.find { pattern -> pattern != three && pattern.all { value -> value in nine } }
-            val two = signalPatterns.filter { it.length == 5 }.find { pattern -> pattern != three && pattern != five }
-
-/*            listOf(zero, one, two, three, four, five, six, seven, eight, nine).forEach { wires ->
-                wires?.toList()?.forEachIndexed { i, value ->
-                    if (i == 0) {
-                        display.setSegmentA(value)
-                    }
-                    if (i == 1) {
-                        display.setSegmentB(value)
-                    }
-                    if (i == 2) {
-                        display.setSegmentC(value)
-                    }
-                    if (i == 3) {
-                        display.setSegmentD(value)
-                    }
-                    if (i == 4) {
-                        display.setSegmentE(value)
-                    }
-                    if (i == 5) {
-                        display.setSegmentF(value)
-                    }
-                    if (i == 6) {
-                        display.setSegmentG(value)
-                    }
-                }
-            }*/
-            val output = outputValues.map { value ->
-                val matching = listOf(zero, one, two, three, four, five, six, seven, eight, nine).find { pattern ->
-                    value.length == pattern?.length && value.all { it in pattern }
-                }
-                when(matching) {
-                    zero -> 0
-                    one -> 1
-                    two -> 2
-                    three -> 3
-                    four -> 4
-                    five -> 5
-                    six -> 6
-                    seven -> 7
-                    eight -> 8
-                    nine -> 9
-                    else -> throw IllegalArgumentException("Invalid Wire Mapping")
-                }
+        val output = outputValues.map { value ->
+            val matching = listOf(zero, one, two, three, four, five, six, seven, eight, nine).find { number ->
+                value.length == number.mapping.size && value.all { it in number.mapping }
             }
-
-            val finalOutput = output.joinToString("").toInt()
-            AdventLogger.debug("$outputValues: $finalOutput")
-            finalOutput
+            matching?.value ?: throw IllegalArgumentException("No matching value for $value")
         }
+
+        val finalOutput = output.joinToString("").toInt()
+        AdventLogger.debug("$outputValues: $finalOutput")
+        finalOutput
     }
 }
