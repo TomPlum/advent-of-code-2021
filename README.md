@@ -46,7 +46,7 @@ tests in the `common`, `implementation` and `solutions` Gradle sub-projects as w
 | 05  | 4421          | 676ms    | 18674         | 1s 496ms | [Hydrothermal Venture](docs/DAY5.MD)    |
 | 06  | 372984        | 2ms      | 1681503251694 | 2ms      | [Lanternfish](docs/DAY6.MD)             |
 | 07  | 345035        | 23ms     | 97038163      | 59ms     | [The Treachery of Whales](docs/DAY7.MD) |
-| 08  | -             | -        | -             | -        | [](docs/DAY8.MD)                        |
+| 08  | 352           | 2ms      | 936117        | 14ms     | [Seven Segment Search](docs/DAY8.MD)    |
 | 09  | -             | -        | -             | -        | [](docs/DAY9.MD)                        |
 | 10  | -             | -        | -             | -        | [](docs/DAY10.MD)                       |
 | 11  | -             | -        | -             | -        | [](docs/DAY11.MD)                       |
