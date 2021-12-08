@@ -12,4 +12,18 @@ class DisplayAnalyserTest {
         val analyser = DisplayAnalyser(input.value)
         assertThat(analyser.countUniqueSegmentsInstances()).isEqualTo(26)
     }
+
+    @Test
+    fun smallerExamplePartTwo() {
+        val input = TestInputReader.read<String>("/day8/example.txt")
+        val analyser = DisplayAnalyser(input.value)
+        assertThat(analyser.getOutputValueSum()).isEqualTo(5353)
+    }
+
+    @Test
+    fun largerExamplePartTwo() {
+        val input = TestInputReader.read<String>("/day8/larger-example.txt")
+        val analyser = DisplayAnalyser(input.value)
+        assertThat(analyser.getOutputValueSum()).isEqualTo(61229)
+    }
 }
