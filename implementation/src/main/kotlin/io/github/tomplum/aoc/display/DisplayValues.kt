@@ -19,6 +19,16 @@ enum class DisplayValues(val value: Int, val wires: List<Char>) {
         return this
     }
 
+    fun matchesPattern(pattern: String) = this.mapping.all { value -> value in pattern }
+
+    fun matches(pattern: String) = mapping.joinToString("") == pattern
+
+    fun matchesLength(pattern: String) = wires.size == pattern.length
+
+    fun matchesMappingLength(pattern: String) = mapping.size == pattern.length
+
+    fun containsAll(pattern: String) = pattern.all { value -> value in mapping }
+
     override fun toString(): String {
         return mapping.joinToString("")
     }
