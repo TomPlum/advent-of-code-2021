@@ -11,4 +11,10 @@ class Day8 : Solution<Int, Int> {
         val analyser = DisplayAnalyser(input)
         return analyser.countUniqueSegmentsInstances()
     }
+
+    override fun part2(): Int {
+        val input = InputReader.read<String>(Day(8)).value
+        val analyser = DisplayAnalyser(input)
+        return analyser.getOutputValueSum()
+    }
 }
