@@ -12,4 +12,11 @@ class SafetyModuleTest {
         val safetyModule = SafetyModule(input)
         assertThat(safetyModule.calculateRiskLevel()).isEqualTo(15)
     }
+
+    @Test
+    fun partTwoExample() {
+        val input = TestInputReader.read<String>("/day9/example.txt").value
+        val safetyModule = SafetyModule(input)
+        assertThat(safetyModule.getThreeLargestBasinSizes()).isEqualTo(1134)
+    }
 }
