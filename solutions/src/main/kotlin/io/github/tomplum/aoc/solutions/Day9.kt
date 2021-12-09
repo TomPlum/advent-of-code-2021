@@ -11,4 +11,10 @@ class Day9 : Solution<Int, Int> {
         val safetyModule = SafetyModule(input)
         return safetyModule.calculateRiskLevel()
     }
+
+    override fun part2(): Int {
+        val input = InputReader.read<String>(Day(9)).value
+        val safetyModule = SafetyModule(input)
+        return safetyModule.getThreeLargestBasinSizes()
+    }
 }
