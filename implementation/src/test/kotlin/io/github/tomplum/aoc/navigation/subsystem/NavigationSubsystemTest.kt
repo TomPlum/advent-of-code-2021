@@ -12,4 +12,11 @@ class NavigationSubsystemTest {
         val subsystem = NavigationSubsystem(input)
         assertThat(subsystem.getTotalSyntaxErrorScore()).isEqualTo(26397)
     }
+
+    @Test
+    fun examplePartTwo() {
+        val input = TestInputReader.read<String>("/day10/example.txt").value
+        val subsystem = NavigationSubsystem(input)
+        assertThat(subsystem.getMiddlingAutoCompleteScore()).isEqualTo(288957)
+    }
 }
