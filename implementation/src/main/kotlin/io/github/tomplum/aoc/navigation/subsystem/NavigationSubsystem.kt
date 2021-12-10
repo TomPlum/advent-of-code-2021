@@ -36,7 +36,7 @@ class NavigationSubsystem(private val data: List<String>) {
         return illegalCharacters.sumOf { char -> legalClosingChars.getOrDefault(char, 0) }
     }
 
-    fun getMiddlingAutoCompleteScore(): Int {
+    fun getMiddlingAutoCompleteScore(): Long {
         val stack = Stack<Char>()
         val corruptLines = mutableListOf<String>()
         val illegalCharacters = mutableListOf<Char>()
@@ -58,10 +58,8 @@ class NavigationSubsystem(private val data: List<String>) {
         }
 
         val incompleteLines = data.filter { line -> line !in corruptLines }
-        val completeLines = mutableListOf<String>()
-        val closingChars = mutableListOf<Char>()
         val newStack = Stack<Char>()
-        var scores = mutableListOf<Int>()
+        var scores = mutableListOf<Long>()
         incompleteLines.forEachIndexed { i, line ->
             line.forEach { char ->
                 if (char in legalOpeningChars) {
@@ -77,7 +75,7 @@ class NavigationSubsystem(private val data: List<String>) {
             }
 
             if (newStack.isNotEmpty()) {
-                var score = 0
+                var score = 0L
                 newStack.toList().reversed().forEach { char ->
                     score = (score * 5) + completeScoring.getOrDefault(legalPairs.getOrDefault(char, '-'), 0)
                 }
@@ -87,6 +85,6 @@ class NavigationSubsystem(private val data: List<String>) {
             newStack.clear()
         }
 
-        return scores.sorted()[(scores.size - 1) / 2]
+        return scores.sorted()[(scores.size / 2)]
     }
 }
