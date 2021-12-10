@@ -8,9 +8,11 @@ class HeightMap : AdventMap2D<HeightMapTile>() {
         addTile(pos, HeightMapTile(height))
     }
 
-    fun getLowPoints(): Map<Point2D, HeightMapTile> = getDataMap().filter { (pos, tile) ->
-        filterPoints(pos.adjacent().toSet()).all { adjacent -> adjacent.value.height > tile.height }
-    }
+    fun getLowPoints(): Map<Point2D, HeightMapTile> = getDataMap()
+        .filterValues { tile -> tile.height < 9 }
+        .filter { (pos, tile) ->
+            filterPoints(pos.adjacent().toSet()).all { adjacent -> adjacent.value.height > tile.height }
+        }
 
     fun getBasins(): List<Map<Point2D, HeightMapTile>> = getLowPoints().map { (pos, tile) ->
         val positions = mutableListOf(pos)

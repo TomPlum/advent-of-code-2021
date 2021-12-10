@@ -19,11 +19,12 @@ class SafetyModule(data: List<String>) {
         }
     }
 
-    fun calculateRiskLevel(): Int {
-        return heightMap.getLowPoints().values.sumOf { tile -> tile.height + 1 }
-    }
+    fun calculateRiskLevel(): Int = heightMap.getLowPoints()
+        .values.sumOf { tile -> tile.height + 1 }
 
-    fun getThreeLargestBasinSizes(): Int {
-        return heightMap.getBasins().map { basin -> basin.size }.sorted().takeLast(3).reduce { acc, i -> acc * i }
-    }
+    fun getThreeLargestBasinSizes(): Int = heightMap.getBasins()
+        .map { basin -> basin.size }
+        .sorted()
+        .takeLast(3)
+        .reduce { acc, i -> acc * i }
 }
