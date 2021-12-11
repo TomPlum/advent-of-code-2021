@@ -11,4 +11,10 @@ class Day11 : Solution<Int, Int> {
         val cavernMap = CavernMap(input)
         return cavernMap.getTotalFlashesAfterSteps(100)
     }
+
+    override fun part2(): Int {
+        val input = InputReader.read<String>(Day(11)).value
+        val cavernMap = CavernMap(input)
+        return cavernMap.findSynchronisedFlashStep()
+    }
 }
