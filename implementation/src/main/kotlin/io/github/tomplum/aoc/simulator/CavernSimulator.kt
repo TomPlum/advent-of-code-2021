@@ -1,4 +1,4 @@
-package io.github.tomplum.aoc.octopus
+package io.github.tomplum.aoc.simulator
 
 import io.github.tomplum.libs.logging.AdventLogger
 import io.github.tomplum.libs.math.map.AdventMap2D

@@ -1,4 +1,4 @@
-package io.github.tomplum.aoc.octopus
+package io.github.tomplum.aoc.simulator
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
