@@ -5,7 +5,7 @@ import io.github.tomplum.libs.math.map.AdventMap2D
 import io.github.tomplum.libs.math.point.Point2D
 import java.util.*
 
-class CavernMap(data: List<String>) : AdventMap2D<Octopus>() {
+class CavernSimulator(data: List<String>) : AdventMap2D<Octopus>() {
     init {
         var x = 0
         var y = 0
