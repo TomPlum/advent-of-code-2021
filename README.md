@@ -49,7 +49,7 @@ tests in the `common`, `implementation` and `solutions` Gradle sub-projects as w
 | 08  | 352           | 2ms      | 936117        | 14ms     | [Seven Segment Search](docs/DAY8.MD)    |
 | 09  | 560           | 147ms    | 959136        | 192ms    | [Smoke Basin](docs/DAY9.MD)             |
 | 10  | -             | -        | -             | -        | [](docs/DAY10.MD)                       |
-| 11  | -             | -        | -             | -        | [](docs/DAY11.MD)                       |
+| 11  | 1601          | 25ms     | 368           | 78ms     | [Dumbo Octopus](docs/DAY11.MD)          |
 | 12  | -             | -        | -             | -        | [](docs/DAY12.MD)                       |
 | 13  | -             | -        | -             | -        | [](docs/DAY13.MD)                       |
 | 14  | -             | -        | -             | -        | [](docs/DAY14.MD)                       |
