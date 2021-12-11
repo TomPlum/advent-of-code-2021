@@ -1,8 +1,8 @@
-package io.github.tomplum.aoc.navigation.strategy
+package io.github.tomplum.aoc.navigation.depth.strategy
 
-import io.github.tomplum.aoc.navigation.Direction
-import io.github.tomplum.aoc.navigation.Command
-import io.github.tomplum.aoc.navigation.PositionReport
+import io.github.tomplum.aoc.navigation.depth.Direction
+import io.github.tomplum.aoc.navigation.depth.Command
+import io.github.tomplum.aoc.navigation.depth.PositionReport
 
 class ImprovedNavigation : NavigationStrategy {
     override fun calculatePositionReport(commands: Collection<Command>): PositionReport {

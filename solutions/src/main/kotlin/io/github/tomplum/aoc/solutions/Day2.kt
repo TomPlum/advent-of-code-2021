@@ -1,8 +1,8 @@
 package io.github.tomplum.aoc.solutions
 
-import io.github.tomplum.aoc.navigation.DepthMeter
-import io.github.tomplum.aoc.navigation.strategy.ImprovedNavigation
-import io.github.tomplum.aoc.navigation.strategy.NaiveNavigation
+import io.github.tomplum.aoc.navigation.depth.DepthMeter
+import io.github.tomplum.aoc.navigation.depth.strategy.ImprovedNavigation
+import io.github.tomplum.aoc.navigation.depth.strategy.NaiveNavigation
 import io.github.tomplum.libs.input.Day
 import io.github.tomplum.libs.input.InputReader
 import io.github.tomplum.libs.solutions.Solution

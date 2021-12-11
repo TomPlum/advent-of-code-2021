@@ -1,4 +1,4 @@
-package io.github.tomplum.aoc.navigation
+package io.github.tomplum.aoc.navigation.depth
 
 data class Command(val direction: Direction, val distance: Int) {
     companion object {
