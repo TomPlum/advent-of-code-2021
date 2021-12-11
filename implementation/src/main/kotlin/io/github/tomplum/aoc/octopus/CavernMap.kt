@@ -44,6 +44,37 @@ class CavernMap(data: List<String>) : AdventMap2D<Octopus>() {
         flashCount
     }
 
+    fun findSynchronisedFlashStep(): Int {
+        var synchronised = false
+        var step = 1
+        while (!synchronised) {
+            getDataMap().forEach { (pos, current) -> addTile(pos, Octopus(current.energy + 1)) }
+            val toFlash = filterTiles { octopus -> octopus.energy > 9 }
+            val hasFlashed = mutableListOf<Point2D>()
+            var flashCount = 0
+            val next = Stack<Point2D>()
+            next.addAll(toFlash.keys)
+            while(next.isNotEmpty()) {
+                val current = next.pop()
+                hasFlashed.add(current)
+                addTile(current, Octopus(0))
+                val adjacent = filterPoints(current.adjacent().toSet()).filterKeys { pos -> pos !in hasFlashed }
+                adjacent.forEach { (pos, octopus) -> addTile(pos, Octopus(octopus.energy + 1)) }
+                val afterFlashing = filterPoints(current.adjacent().toSet()).filterKeys { pos -> pos !in hasFlashed }
+                val flashing = afterFlashing.filterValues { octopus -> octopus.energy > 9 }.filterKeys { pos -> pos !in hasFlashed && pos !in next }
+                next.addAll(flashing.keys)
+                flashCount++
+            }
+
+            if (getDataMap().values.all { octopus -> octopus.energy == 0 }) {
+                synchronised = true
+            } else {
+                step++
+            }
+        }
+        return step
+    }
+
     override fun toString(): String {
         val yMin = yMin() ?: 0
         val yMax = yMax() ?: 0
