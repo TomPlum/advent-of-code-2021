@@ -7,23 +7,44 @@ import org.junit.jupiter.api.Test
 
 class PathingSystemTest {
     @Test
-    fun exampleOnePartOne() {
+    fun partOneExampleOne() {
         val input = TestInputReader.read<String>("/day12/example-1.txt").value
         val system = PathingSystem(input)
         assertThat(system.findPathsVisitingSmallCaves()).isEqualTo(10)
     }
 
     @Test
-    fun exampleTwoPartOne() {
+    fun partOneExampleTwo() {
         val input = TestInputReader.read<String>("/day12/example-2.txt").value
         val system = PathingSystem(input)
         assertThat(system.findPathsVisitingSmallCaves()).isEqualTo(19)
     }
 
     @Test
-    fun exampleThreePartOne() {
+    fun partOneExampleThree() {
         val input = TestInputReader.read<String>("/day12/example-3.txt").value
         val system = PathingSystem(input)
         assertThat(system.findPathsVisitingSmallCaves()).isEqualTo(226)
+    }
+
+    @Test
+    fun partTwoExampleOne() {
+        val input = TestInputReader.read<String>("/day12/example-1.txt").value
+        val system = PathingSystem(input)
+        assertThat(system.findPathsVisitingSmallCaves2()).isEqualTo(36)
+    }
+
+    @Test
+    fun partTwoExampleTwo() {
+        val input = TestInputReader.read<String>("/day12/example-2.txt").value
+        val system = PathingSystem(input)
+        assertThat(system.findPathsVisitingSmallCaves2()).isEqualTo(103)
+    }
+
+    @Test
+    fun partTwoExampleThree() {
+        val input = TestInputReader.read<String>("/day12/example-3.txt").value
+        val system = PathingSystem(input)
+        assertThat(system.findPathsVisitingSmallCaves2()).isEqualTo(3509)
     }
 }
