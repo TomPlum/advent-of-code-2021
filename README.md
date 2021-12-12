@@ -50,7 +50,7 @@ tests in the `common`, `implementation` and `solutions` Gradle sub-projects as w
 | 09  | 560           | 147ms    | 959136        | 192ms    | [Smoke Basin](docs/DAY9.MD)             |
 | 10  | -             | -        | -             | -        | [](docs/DAY10.MD)                       |
 | 11  | 1601          | 25ms     | 368           | 78ms     | [Dumbo Octopus](docs/DAY11.MD)          |
-| 12  | -             | -        | -             | -        | [](docs/DAY12.MD)                       |
+| 12  | 4495          | 37ms     | 131254        | 593ms    | [Passage Pathing](docs/DAY12.MD)        |
 | 13  | -             | -        | -             | -        | [](docs/DAY13.MD)                       |
 | 14  | -             | -        | -             | -        | [](docs/DAY14.MD)                       |
 | 15  | -             | -        | -             | -        | [](docs/DAY15.MD)                       |
