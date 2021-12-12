@@ -5,29 +5,33 @@ import java.util.*
 
 class PathingSystem(val data: List<String>) {
 
-    private val mapping = mutableMapOf<String, List<String>>()
+    private val startingCave = "start"
+    private val finishingCave = "end"
+
+    private val caves = mutableMapOf<String, List<String>>()
+    private val visited = mutableSetOf<String>()
+
     private val paths = mutableListOf<List<String>>()
     private var currentPath = Stack<String>()
-    private val visited = mutableSetOf<String>()
 
     init {
         data.forEach { entry ->
             val values = entry.split("-")
 
-            val leftMappings = mapping.getOrDefault(values[0], mutableListOf()).toMutableList()
+            val leftMappings = caves.getOrDefault(values[0], mutableListOf()).toMutableList()
             leftMappings.add(values[1])
-            mapping[values[0]] = leftMappings.filter { it != "start" }
+            caves[values[0]] = leftMappings.filter { it != startingCave }
 
-            val rightMappings = mapping.getOrDefault(values[1], mutableListOf()).toMutableList()
+            val rightMappings = caves.getOrDefault(values[1], mutableListOf()).toMutableList()
             rightMappings.add(values[0])
-            mapping[values[1]] = rightMappings.filter { it != "start" }
+            caves[values[1]] = rightMappings.filter { it != startingCave }
         }
     }
 
     fun findPathsVisitingSmallCaves(): Int {
-        mapping["start"]?.forEach { target ->
+        caves["start"]?.forEach { target ->
             currentPath.push("start")
-            dfs("start", target) { _, cave -> cave.all { char -> char.isUpperCase() } || cave !in currentPath }
+            dfs("start", target) { cave -> cave.all { char -> char.isUpperCase() } || cave !in currentPath }
             currentPath.clear()
             visited.clear()
         }
@@ -35,11 +39,11 @@ class PathingSystem(val data: List<String>) {
         return paths.size
     }
 
-    fun findPathsVisitingSmallCaves2(): Int {
-        mapping.keys.filter { key -> key.all { it.isLowerCase() } && key !in listOf("start", "end") }.forEach { smallCave ->
-            mapping["start"]?.forEach { target ->
-                currentPath.push("start")
-                dfs("start", target) { _, cave -> cave.all { char -> char.isUpperCase() } || cave !in currentPath || (cave == smallCave && currentPath.count { path -> path == smallCave } < 2) }
+    fun findPathsVisitingSmallCaveTwice(): Int {
+        caves.keys.filter { key -> key.all { it.isLowerCase() } && key !in listOf(startingCave, finishingCave) }.forEach { smallCave ->
+            caves[startingCave]?.forEach { target ->
+                currentPath.push(startingCave)
+                dfs(startingCave, target) { cave -> cave.all { char -> char.isUpperCase() } || cave !in currentPath || (cave == smallCave && currentPath.count { path -> path == smallCave } < 2) }
                 currentPath.clear()
                 visited.clear()
             }
@@ -48,17 +52,18 @@ class PathingSystem(val data: List<String>) {
         return paths.distinct().size
     }
 
-    private fun dfs(source: String, target: String, filter: (current: String, cave: String) -> Boolean) {
+    private fun dfs(source: String, target: String, filter: (cave: String) -> Boolean) {
         visited.add(target)
         currentPath.push(target)
 
         val next = Stack<String>()
-        if (target != "end") {
-            val nextTargets = mapping.getOrDefault(target, emptyList()).filter { filter(target, it) }
-            next.addAll(nextTargets)
-        } else {
+        if (target == finishingCave) {
             AdventLogger.debug(currentPath.joinToString(","))
             paths.add(currentPath.toList())
+        } else {
+            caves.getOrDefault(target, emptyList())
+                .filter { targetCave -> filter(targetCave) }
+                .let { nextTargets -> next.addAll(nextTargets) }
         }
 
         while(next.isNotEmpty()) {

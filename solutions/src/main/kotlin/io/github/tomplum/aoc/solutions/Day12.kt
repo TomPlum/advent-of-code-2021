@@ -15,6 +15,6 @@ class Day12 : Solution<Int, Int> {
     override fun part2(): Int {
         val input = InputReader.read<String>(Day(12)).value
         val pathingSystem = PathingSystem(input)
-        return pathingSystem.findPathsVisitingSmallCaves2()
+        return pathingSystem.findPathsVisitingSmallCaveTwice()
     }
 }

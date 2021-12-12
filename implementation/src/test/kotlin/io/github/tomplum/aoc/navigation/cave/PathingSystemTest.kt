@@ -31,20 +31,20 @@ class PathingSystemTest {
     fun partTwoExampleOne() {
         val input = TestInputReader.read<String>("/day12/example-1.txt").value
         val system = PathingSystem(input)
-        assertThat(system.findPathsVisitingSmallCaves2()).isEqualTo(36)
+        assertThat(system.findPathsVisitingSmallCaveTwice()).isEqualTo(36)
     }
 
     @Test
     fun partTwoExampleTwo() {
         val input = TestInputReader.read<String>("/day12/example-2.txt").value
         val system = PathingSystem(input)
-        assertThat(system.findPathsVisitingSmallCaves2()).isEqualTo(103)
+        assertThat(system.findPathsVisitingSmallCaveTwice()).isEqualTo(103)
     }
 
     @Test
     fun partTwoExampleThree() {
         val input = TestInputReader.read<String>("/day12/example-3.txt").value
         val system = PathingSystem(input)
-        assertThat(system.findPathsVisitingSmallCaves2()).isEqualTo(3509)
+        assertThat(system.findPathsVisitingSmallCaveTwice()).isEqualTo(3509)
     }
 }
