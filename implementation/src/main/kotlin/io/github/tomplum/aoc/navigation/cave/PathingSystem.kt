@@ -41,7 +41,8 @@ class PathingSystem(val data: List<String>) {
 
         val next = Stack<String>()
         if (target != "end") {
-            val nextTargets = mapping.getOrDefault(target, emptyList()).filter { it.all { char -> char.isUpperCase() } || it !in currentPath }
+            val nextTargets = mapping.getOrDefault(target, emptyList())
+                .filter { it.all { char -> char.isUpperCase() } || it !in currentPath }
             next.addAll(nextTargets)
         } else {
             AdventLogger.debug(currentPath.joinToString(","))
