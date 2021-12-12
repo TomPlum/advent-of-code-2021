@@ -14,7 +14,7 @@ class PathingSystem(val data: List<String>) {
     private val paths = mutableListOf<List<String>>()
     private var currentPath = Stack<String>()
 
-    private val singleVisitCaveFilter = { cave: String -> cave.all { char -> char.isUpperCase() } || cave !in currentPath }
+    private val singleVisitCaveFilter = { cave: String -> cave.isBigCave() || cave !in currentPath }
 
     init {
         data.forEach { entry ->
@@ -31,31 +31,29 @@ class PathingSystem(val data: List<String>) {
     }
 
     fun findPathsVisitingSmallCaves(): Int {
-        caves["start"]?.forEach { target ->
-            currentPath.push("start")
-            dfs("start", target, singleVisitCaveFilter)
-            currentPath.clear()
-            visited.clear()
-        }
-
+        discoverPaths(singleVisitCaveFilter)
         return paths.size
     }
 
-    fun findPathsVisitingSmallCaveTwice(): Int {
-        caves.keys.filter { key -> key.all { it.isLowerCase() } && key !in listOf(startingCave, finishingCave) }.forEach { smallCave ->
-            caves[startingCave]?.forEach { target ->
-                currentPath.push(startingCave)
-                dfs(startingCave, target) { cave ->
-                    val matchesSingleVisit = singleVisitCaveFilter(cave)
-                    val matchesDoubleVisit = (cave == smallCave && currentPath.count { path -> path == smallCave } < 2)
-                    matchesSingleVisit || matchesDoubleVisit
-                }
-                currentPath.clear()
-                visited.clear()
+    fun findPathsVisitingSmallCaveTwice(): Int = caves.keys
+        .filter { key -> key.isSmallCave() }
+        .filter { cave -> cave !in listOf(startingCave, finishingCave) }
+        .forEach { smallCave ->
+            discoverPaths { cave ->
+                val matchesSingleVisit = singleVisitCaveFilter(cave)
+                val matchesDoubleVisit = (cave == smallCave && currentPath.count { path -> path == smallCave } < 2)
+                matchesSingleVisit || matchesDoubleVisit
             }
         }
+        .run { paths.distinct().size }
 
-        return paths.distinct().size
+    private fun discoverPaths(targetCaveFilter: (cave: String) -> Boolean) {
+        caves[startingCave]?.forEach { target ->
+            currentPath.push(startingCave)
+            dfs(startingCave, target, targetCaveFilter)
+            currentPath.clear()
+            visited.clear()
+        }
     }
 
     private fun dfs(source: String, target: String, filter: (cave: String) -> Boolean) {
@@ -78,4 +76,7 @@ class PathingSystem(val data: List<String>) {
 
         currentPath.removeLast()
     }
+
+    private fun String.isSmallCave() = this.all { char -> char.isLowerCase() }
+    private fun String.isBigCave() = this.all { char -> char.isUpperCase() }
 }
