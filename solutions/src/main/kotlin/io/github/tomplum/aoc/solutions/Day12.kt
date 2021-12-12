@@ -6,15 +6,14 @@ import io.github.tomplum.libs.input.InputReader
 import io.github.tomplum.libs.solutions.Solution
 
 class Day12 : Solution<Int, Int> {
+    private val input = InputReader.read<String>(Day(12)).value
+    private val pathingSystem = PathingSystem(input)
+
     override fun part1(): Int {
-        val input = InputReader.read<String>(Day(12)).value
-        val pathingSystem = PathingSystem(input)
         return pathingSystem.findPathsVisitingSmallCaves()
     }
 
     override fun part2(): Int {
-        val input = InputReader.read<String>(Day(12)).value
-        val pathingSystem = PathingSystem(input)
         return pathingSystem.findPathsVisitingSmallCaveTwice()
     }
 }
