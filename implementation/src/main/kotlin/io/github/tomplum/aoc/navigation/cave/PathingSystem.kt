@@ -14,6 +14,8 @@ class PathingSystem(val data: List<String>) {
     private val paths = mutableListOf<List<String>>()
     private var currentPath = Stack<String>()
 
+    private val singleVisitCaveFilter = { cave: String -> cave.all { char -> char.isUpperCase() } || cave !in currentPath }
+
     init {
         data.forEach { entry ->
             val values = entry.split("-")
@@ -31,7 +33,7 @@ class PathingSystem(val data: List<String>) {
     fun findPathsVisitingSmallCaves(): Int {
         caves["start"]?.forEach { target ->
             currentPath.push("start")
-            dfs("start", target) { cave -> cave.all { char -> char.isUpperCase() } || cave !in currentPath }
+            dfs("start", target, singleVisitCaveFilter)
             currentPath.clear()
             visited.clear()
         }
@@ -43,7 +45,11 @@ class PathingSystem(val data: List<String>) {
         caves.keys.filter { key -> key.all { it.isLowerCase() } && key !in listOf(startingCave, finishingCave) }.forEach { smallCave ->
             caves[startingCave]?.forEach { target ->
                 currentPath.push(startingCave)
-                dfs(startingCave, target) { cave -> cave.all { char -> char.isUpperCase() } || cave !in currentPath || (cave == smallCave && currentPath.count { path -> path == smallCave } < 2) }
+                dfs(startingCave, target) { cave ->
+                    val matchesSingleVisit = singleVisitCaveFilter(cave)
+                    val matchesDoubleVisit = (cave == smallCave && currentPath.count { path -> path == smallCave } < 2)
+                    matchesSingleVisit || matchesDoubleVisit
+                }
                 currentPath.clear()
                 visited.clear()
             }
