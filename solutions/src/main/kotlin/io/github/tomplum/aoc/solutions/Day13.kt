@@ -9,6 +9,13 @@ class Day13 : Solution<Int, Int> {
     override fun part1(): Int {
         val input = InputReader.read<String>(Day(13)).value
         val thermalCamera = ThermalCamera(input)
-        return thermalCamera.countVisibleDots()
+        return thermalCamera.countVisibleDotsAfterFirstFold()
+    }
+
+    override fun part2(): Int {
+        val input = InputReader.read<String>(Day(13)).value
+        val thermalCamera = ThermalCamera(input)
+        thermalCamera.executeAllFolds()
+        return 0
     }
 }

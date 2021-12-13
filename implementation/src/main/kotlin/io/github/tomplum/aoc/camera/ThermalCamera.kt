@@ -6,6 +6,7 @@ import io.github.tomplum.libs.math.point.Point2D
 class ThermalCamera(data: List<String>) {
 
     private val instructions = Instructions()
+    private val folds = mutableListOf<Pair<Char, Int>>()
 
     init {
         val coordinates = data.takeWhile { entry -> entry != "" }
@@ -17,21 +18,35 @@ class ThermalCamera(data: List<String>) {
 
         AdventLogger.debug(instructions)
 
-        val folds = data.takeLastWhile { line -> line != "" }
-        folds.take(1).forEach { fold ->
+        data.takeLastWhile { line -> line != "" }.forEach { fold ->
             if (fold.contains("y")) {
-                instructions.yFold(fold.last().toString().toInt())
-                AdventLogger.debug(instructions)
+                folds.add(Pair('y', fold.last().toString().toInt()))
             }
 
             if (fold.contains("x")) {
-                instructions.xFold(fold.last().toString().toInt())
-                AdventLogger.debug(instructions)
+                folds.add(Pair('x', fold.last().toString().toInt()))
             }
         }
     }
 
-    fun countVisibleDots(): Int {
+    fun countVisibleDotsAfterFirstFold(): Int {
+        val fold = folds.first()
+        if (fold.first == 'x') {
+            instructions.xFold(fold.second)
+        } else {
+            instructions.yFold(fold.second)
+        }
         return instructions.getDotCount()
+    }
+
+    fun executeAllFolds() {
+        folds.forEach { fold ->
+            if (fold.first == 'x') {
+                instructions.xFold(fold.second)
+            } else {
+                instructions.yFold(fold.second)
+            }
+        }
+        AdventLogger.debug(instructions)
     }
 }

@@ -10,6 +10,6 @@ class ThermalCameraTest {
     fun examplePartOne() {
         val input = TestInputReader.read<String>("/day13/example.txt")
         val camera = ThermalCamera(input.value)
-        assertThat(camera.countVisibleDots()).isEqualTo(17)
+        assertThat(camera.countVisibleDotsAfterFirstFold()).isEqualTo(17)
     }
 }
