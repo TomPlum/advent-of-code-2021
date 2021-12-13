@@ -51,7 +51,7 @@ tests in the `common`, `implementation` and `solutions` Gradle sub-projects as w
 | 10  | -             | -        | -             | -        | [](docs/DAY10.MD)                       |
 | 11  | 1601          | 25ms     | 368           | 78ms     | [Dumbo Octopus](docs/DAY11.MD)          |
 | 12  | 4495          | 37ms     | 131254        | 593ms    | [Passage Pathing](docs/DAY12.MD)        |
-| 13  | -             | -        | -             | -        | [](docs/DAY13.MD)                       |
+| 13  | 842           | 48ms     | BFKRCJZU      | 102ms    | [Transparent Origami](docs/DAY13.MD)    |
 | 14  | -             | -        | -             | -        | [](docs/DAY14.MD)                       |
 | 15  | -             | -        | -             | -        | [](docs/DAY15.MD)                       |
 | 16  | -             | -        | -             | -        | [](docs/DAY16.MD)                       |
