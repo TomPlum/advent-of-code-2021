@@ -17,12 +17,18 @@ class ThermalCamera(data: List<String>) {
 
         AdventLogger.debug(instructions)
 
-        val folds = data.takeLast(2)
-        instructions.yFold(folds.find { it.contains("y") }?.last().toString().toInt())
-        AdventLogger.debug(instructions)
+        val folds = data.takeLastWhile { line -> line != "" }
+        folds.take(1).forEach { fold ->
+            if (fold.contains("y")) {
+                instructions.yFold(fold.last().toString().toInt())
+                AdventLogger.debug(instructions)
+            }
 
-        instructions.xFold(folds.find { it.contains("x") }?.last().toString().toInt())
-        AdventLogger.debug(instructions)
+            if (fold.contains("x")) {
+                instructions.xFold(fold.last().toString().toInt())
+                AdventLogger.debug(instructions)
+            }
+        }
     }
 
     fun countVisibleDots(): Int {
