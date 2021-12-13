@@ -11,6 +11,14 @@ class Instructions : AdventMap2D<PaperSegment>() {
         addTile(pos, PaperSegment('#'))
     }
 
+    fun fold(instruction: FoldInstruction) {
+        val ordinate = instruction.ordinate
+        when(instruction.axis) {
+            FoldAxis.X -> xFold(ordinate)
+            FoldAxis.Y -> yFold(ordinate)
+        }
+    }
+
     fun yFold(y: Int) {
         val yMax = yMax()!!
         val xMin = xMin()!!

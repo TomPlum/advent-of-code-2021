@@ -6,11 +6,10 @@ import io.github.tomplum.libs.math.point.Point2D
 class ThermalCamera(data: List<String>) {
 
     private val instructions = Instructions()
-    private val folds = mutableListOf<Pair<Char, Int>>()
+    private val folds = mutableListOf<FoldInstruction>()
 
     init {
-        val coordinates = data.takeWhile { entry -> entry != "" }
-        coordinates.forEach { coord ->
+        data.takeWhile { entry -> entry != "" }.forEach { coord ->
             val values = coord.split(",")
             val position = Point2D(values[0].toInt(), values[1].toInt())
             instructions.addDot(position)
@@ -19,34 +18,26 @@ class ThermalCamera(data: List<String>) {
         AdventLogger.debug(instructions)
 
         data.takeLastWhile { line -> line != "" }.forEach { fold ->
+            val ordinate = fold.last().toString().toInt()
+
             if (fold.contains("y")) {
-                folds.add(Pair('y', fold.last().toString().toInt()))
+                folds.add(FoldInstruction(FoldAxis.Y, ordinate))
             }
 
             if (fold.contains("x")) {
-                folds.add(Pair('x', fold.last().toString().toInt()))
+                folds.add(FoldInstruction(FoldAxis.X, ordinate))
             }
         }
     }
 
     fun countVisibleDotsAfterFirstFold(): Int {
         val fold = folds.first()
-        if (fold.first == 'x') {
-            instructions.xFold(fold.second)
-        } else {
-            instructions.yFold(fold.second)
-        }
+        instructions.fold(fold)
         return instructions.getDotCount()
     }
 
     fun executeAllFolds() {
-        folds.forEach { fold ->
-            if (fold.first == 'x') {
-                instructions.xFold(fold.second)
-            } else {
-                instructions.yFold(fold.second)
-            }
-        }
+        folds.forEach { fold -> instructions.fold(fold) }
         AdventLogger.debug(instructions)
     }
 }
