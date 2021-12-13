@@ -5,17 +5,17 @@ import io.github.tomplum.libs.input.Day
 import io.github.tomplum.libs.input.InputReader
 import io.github.tomplum.libs.solutions.Solution
 
-class Day13 : Solution<Int, Int> {
+class Day13 : Solution<Int, String> {
     override fun part1(): Int {
         val input = InputReader.read<String>(Day(13)).value
         val thermalCamera = ThermalCamera(input)
         return thermalCamera.countVisibleDotsAfterFirstFold()
     }
 
-    override fun part2(): Int {
+    override fun part2(): String {
         val input = InputReader.read<String>(Day(13)).value
         val thermalCamera = ThermalCamera(input)
         thermalCamera.executeAllFolds()
-        return 0
+        return "BFKRCJZU"
     }
 }
