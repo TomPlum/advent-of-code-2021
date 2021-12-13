@@ -48,7 +48,7 @@ tests in the `common`, `implementation` and `solutions` Gradle sub-projects as w
 | 07  | 345035        | 23ms     | 97038163      | 59ms     | [The Treachery of Whales](docs/DAY7.MD) |
 | 08  | 352           | 2ms      | 936117        | 14ms     | [Seven Segment Search](docs/DAY8.MD)    |
 | 09  | 560           | 147ms    | 959136        | 192ms    | [Smoke Basin](docs/DAY9.MD)             |
-| 10  | -             | -        | -             | -        | [](docs/DAY10.MD)                       |
+| 10  | 392097        | 12ms     | 4263222782    | 7ms      | [Syntax Scoring](docs/DAY10.MD)         |
 | 11  | 1601          | 25ms     | 368           | 78ms     | [Dumbo Octopus](docs/DAY11.MD)          |
 | 12  | 4495          | 37ms     | 131254        | 593ms    | [Passage Pathing](docs/DAY12.MD)        |
 | 13  | 842           | 48ms     | BFKRCJZU      | 102ms    | [Transparent Origami](docs/DAY13.MD)    |
