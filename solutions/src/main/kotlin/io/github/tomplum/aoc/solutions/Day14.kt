@@ -6,15 +6,15 @@ import io.github.tomplum.libs.input.InputReader
 import io.github.tomplum.libs.solutions.Solution
 
 class Day14 : Solution<Long, Long> {
+
+    private val input = InputReader.read<String>(Day(14)).value
+    private val polymeriser = Polymeriser(input)
+
     override fun part1(): Long {
-        val input = InputReader.read<String>(Day(14)).value
-        val polymeriser = Polymeriser(input)
         return polymeriser.doThing(10)
     }
 
     override fun part2(): Long {
-        val input = InputReader.read<String>(Day(14)).value
-        val polymeriser = Polymeriser(input)
         return polymeriser.doThing(40)
     }
 }
