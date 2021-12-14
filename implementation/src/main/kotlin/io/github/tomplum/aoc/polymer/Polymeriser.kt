@@ -24,11 +24,10 @@ class Polymeriser(val data: List<String>) {
             updates.forEach { (pair, occurrences) -> pairs[pair] = pairs.getOrDefault(pair, 0) + occurrences }
         }
         val elements = rules.map { rule -> rule.split(" -> ")[1].last() }.distinct()
-        val occurrences = elements.associateWith { element ->
-            pairs.map { (pair, occurrences) ->
-                pair.count { char -> char == element } * occurrences
-            }.sum() / 2
-        }
-        return occurrences.values.last() - occurrences.values.first()
+        val occurrences = elements.map { element ->
+            val total = pairs.map { (pair, count) -> pair.count { char -> char == element } * count }.sum()
+            (if (total % 2 == 1) total + 1 else total) / 2
+        }.sorted()
+        return occurrences.last() - occurrences.first()
     }
 }
