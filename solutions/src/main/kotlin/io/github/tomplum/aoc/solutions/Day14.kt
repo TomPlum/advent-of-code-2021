@@ -11,10 +11,10 @@ class Day14 : Solution<Long, Long> {
     private val polymeriser = Polymeriser(input)
 
     override fun part1(): Long {
-        return polymeriser.doThing(10)
+        return polymeriser.calculateElementOccurrenceBoundaryDifference(10)
     }
 
     override fun part2(): Long {
-        return polymeriser.doThing(40)
+        return polymeriser.calculateElementOccurrenceBoundaryDifference(40)
     }
 }
