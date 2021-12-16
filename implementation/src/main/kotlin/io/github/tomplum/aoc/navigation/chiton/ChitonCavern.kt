@@ -12,6 +12,19 @@ class ChitonCavern : AdventMap2D<CavernPosition>() {
         return getTile(pos).risk
     }
 
+    fun getGraphRepresentation(): Map<Point2D, Node> {
+        val nodes = getDataMap().entries.associate { (pos, value) -> pos to Node(pos, value.risk) }
+        getDataMap().keys.forEach { pos ->
+            val node = nodes[pos]
+            val adjacent = filterPoints(pos.orthogonallyAdjacent().toSet())
+            adjacent.forEach { (adjacentPos, adjacentValue) ->
+                val found = nodes[adjacentPos]!!
+                node?.addDestination(found, adjacentValue.risk)
+            }
+        }
+        return nodes
+    }
+
     fun getCavernPosition(point: Point2D) = getTile(point)
 
     fun getCavernPositions(points: List<Point2D>) = filterPoints(points.toSet())

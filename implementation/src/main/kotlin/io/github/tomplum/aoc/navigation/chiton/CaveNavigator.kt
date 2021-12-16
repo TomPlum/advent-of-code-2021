@@ -21,38 +21,28 @@ class CaveNavigator(mapData: List<String>) {
     }
 
     fun calculateLowestRiskPath(): Int {
-        val start = Point2D(0, 0)
-        val end = cavern.getBottomRightMostPoint()
+        val graph = cavern.getGraphRepresentation()
 
         val unsettled = PriorityQueue<Node> { a, b -> a.distance - b.distance }
-        val settled = mutableListOf<Node>()
+        val settled = hashSetOf<Node>()
 
-        val startNode = Node(start)
-        startNode.distance = 0
-        unsettled.add(startNode)
+        val root = graph[Point2D(0, 0)]
+        root?.distance = 0
+        unsettled.add(root)
 
-        var steps = 0
         while(unsettled.isNotEmpty()) {
             val currentNode = unsettled.poll()
-            val adjacentNodes = currentNode?.position?.orthogonallyAdjacent()
-                ?.map { pos -> Node(pos) }
-                ?.filter { node -> cavern.hasPosition(node.position) }
-
-            adjacentNodes?.forEach { adjacent ->
+            val adjacentNodes = currentNode.adjacentNodes
+            adjacentNodes.forEach { (adjacent, edgeWeight) ->
                if (adjacent !in settled) {
-                   val adjacentNodeRiskLevel = cavern.getRiskLevel(adjacent.position)
-                   currentNode.updateDistance(adjacent, adjacentNodeRiskLevel)
+                   currentNode.updateDistance(adjacent, edgeWeight)
                    unsettled.add(adjacent)
                }
             }
 
             settled.add(currentNode)
-            steps++
         }
-
-        return (settled.find { it.position == end }
-            ?.shortestPath?.map { node -> node.position }
-            ?.toSet() ?: emptySet())
-            .let { positions -> cavern.calculateTotalRiskLevel(positions) }
+        //348 too low
+        return graph[cavern.getBottomRightMostPoint()]?.distance ?: 0
     }
 }
