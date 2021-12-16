@@ -21,4 +21,12 @@ class ChitonCavern : AdventMap2D<CavernPosition>() {
     fun getBottomRightMostPoint(): Point2D {
         return Point2D(xMax()!!, yMax()!!)
     }
+
+    fun hasPosition(pos: Point2D): Boolean {
+        return hasRecorded(pos)
+    }
+
+    fun calculateTotalRiskLevel(points: Set<Point2D>): Int {
+        return filterPoints(points).values.sumOf { position -> position.risk }
+    }
 }

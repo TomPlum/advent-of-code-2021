@@ -1,13 +1,13 @@
 package io.github.tomplum.aoc.navigation.chiton
 
-import io.github.tomplum.libs.math.map.MapTile
+import io.github.tomplum.libs.math.point.Point2D
 import java.util.*
 
-class CavernPosition(val risk: Int) : MapTile<Int>(risk) {
-    var shortestPath = LinkedList<CavernPosition>()
+data class Node(val position: Point2D) {
+    var shortestPath = LinkedList<Node>()
     var distance = 2000000000
 
-    fun updateDistance(evaluationNode: CavernPosition, edgeWeight: Int) {
+    fun updateDistance(evaluationNode: Node, edgeWeight: Int) {
         if (distance + edgeWeight < evaluationNode.distance) {
             evaluationNode.distance = distance + edgeWeight
             val shortestPath = LinkedList(this.shortestPath)

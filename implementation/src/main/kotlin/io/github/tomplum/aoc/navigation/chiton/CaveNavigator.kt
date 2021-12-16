@@ -8,9 +8,9 @@ class CaveNavigator(mapData: List<String>) {
     private val cavern = ChitonCavern()
 
     init {
+        var x = 0
+        var y = 0
         mapData.forEach { row ->
-            var x = 0
-            var y = 0
             row.forEach { column ->
                 cavern.addRiskLevel(Point2D(x, y), CavernPosition(column.toString().toInt()))
                 x++
@@ -24,24 +24,35 @@ class CaveNavigator(mapData: List<String>) {
         val start = Point2D(0, 0)
         val end = cavern.getBottomRightMostPoint()
 
-        val weighting = cavern.getPositions().associateWith { Int.MAX_VALUE }.toMutableMap()
-        val graph = mutableSetOf<Pair<Point2D, CavernPosition>>()
-        val unsettled = PriorityQueue<Pair<Point2D, CavernPosition>> { a, b -> a.second.distance - b.second.distance }
+        val unsettled = PriorityQueue<Node> { a, b -> a.distance - b.distance }
+        val settled = mutableListOf<Node>()
+
+        val startNode = Node(start)
+        startNode.distance = 0
+        unsettled.add(startNode)
+
         var steps = 0
         while(unsettled.isNotEmpty()) {
-            val current = unsettled.poll()
-            if (current.first == end) {
-                return current.second.shortestPath.sumOf { pos -> pos.risk }
+            val currentNode = unsettled.poll()
+            val adjacentNodes = currentNode?.position?.orthogonallyAdjacent()
+                ?.map { pos -> Node(pos) }
+                ?.filter { node -> cavern.hasPosition(node.position) }
+
+            adjacentNodes?.forEach { adjacent ->
+               if (adjacent !in settled) {
+                   val adjacentNodeRiskLevel = cavern.getRiskLevel(adjacent.position)
+                   currentNode.updateDistance(adjacent, adjacentNodeRiskLevel)
+                   unsettled.add(adjacent)
+               }
             }
-            val node = graph.find { node -> node.first == current.first }
-            val adjacent = node?.first?.adjacent()?.filter { point -> point !in unsettled.map { node -> node.first } }
-            cavern.getCavernPositions(adjacent!!).forEach { (pos, adjacent) ->
-                adjacent.updateDistance(adjacent, adjacent.risk)
-                unsettled.add(Pair(pos, adjacent))
-            }
+
+            settled.add(currentNode)
             steps++
         }
 
-        return 0
+        return (settled.find { it.position == end }
+            ?.shortestPath?.map { node -> node.position }
+            ?.toSet() ?: emptySet())
+            .let { positions -> cavern.calculateTotalRiskLevel(positions) }
     }
 }
