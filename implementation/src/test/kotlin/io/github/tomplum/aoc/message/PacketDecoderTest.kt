@@ -40,14 +40,14 @@ class PacketDecoderTest {
 
     @Test
     fun partOneExampleThree() {
-        val input = TestInputReader.read<String>("/day16/example-2.txt").asSingleString()
+        val input = TestInputReader.read<String>("/day16/example-3.txt").asSingleString()
         val decoder = PacketDecoder(input)
         assertThat(decoder.calculatePacketVersionNumberSum()).isEqualTo(23)
     }
 
     @Test
     fun partOneExampleFour() {
-        val input = TestInputReader.read<String>("/day16/example-2.txt").asSingleString()
+        val input = TestInputReader.read<String>("/day16/example-4.txt").asSingleString()
         val decoder = PacketDecoder(input)
         assertThat(decoder.calculatePacketVersionNumberSum()).isEqualTo(31)
     }
