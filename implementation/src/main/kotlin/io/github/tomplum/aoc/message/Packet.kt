@@ -14,11 +14,11 @@ data class Packet(val data: String) {
 
     fun getSubPackets(): List<Packet> = when(type) {
         LITERAL -> {
-            var padded = data.substring(6)
+            /*var padded = data.substring(6)
             while (padded.length % 4 != 0) {
                 padded += "0"
-            }
-            val chunks = padded.chunked(5) //.filter { chunk -> !chunk.all { char -> char == '0' } }
+            }*/
+            val chunks = data.substring(6).chunked(5) //.filter { chunk -> !chunk.all { char -> char == '0' } }
             val valueChunks = chunks.takeWhile { chunk -> chunk.first() == '1' }.toMutableList()
             if (valueChunks.isEmpty()) {
                 valueChunks.add(chunks.first())
@@ -26,9 +26,9 @@ data class Packet(val data: String) {
                 valueChunks.add(chunks[valueChunks.size])
             }
             val digits = valueChunks.joinToString("") { chunk -> chunk.substring(1) }
-            literalValue = Integer.parseInt(digits, 2)
+            //literalValue = Integer.parseInt(digits, 2)
 
-            val potentialPacketData = data.substring(7 + digits.length)
+            val potentialPacketData = data.substring(7 + valueChunks.joinToString("").length - 1)
             if (!potentialPacketData.all { char -> char == '0' }) {
                 listOf(this) + Packet(potentialPacketData).getSubPackets()
             } else {
@@ -50,10 +50,10 @@ data class Packet(val data: String) {
                 SUB_PACKET_QUANTIY -> {
                     val subPacketQuantity = Integer.parseInt(data.substring(8..17), 2)
                     val subPacketData = data.substring(18).dropLastWhile { value -> value == '0' }
-                    subPacketData.chunked(subPacketData.length / subPacketQuantity).flatMap { binary ->
+                   /* subPacketData.dropLastWhile { value -> value == '0' }.chunked(subPacketData.length / subPacketQuantity).flatMap { binary ->
                         Packet(binary).getSubPackets() + this
-                    }
-                    //Packet(subPacketData).getSubPackets() + this
+                    }*/
+                    Packet(subPacketData).getSubPackets() + this
                 }
             }
         }

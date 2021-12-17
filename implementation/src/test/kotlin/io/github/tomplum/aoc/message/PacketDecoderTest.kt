@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 class PacketDecoderTest {
     @Test
-    fun example() {
+    fun literalValueExample() {
         val decoder = PacketDecoder("D2FE28")
         assertThat(decoder.calculatePacketVersionNumberSum()).isEqualTo(16)
     }
