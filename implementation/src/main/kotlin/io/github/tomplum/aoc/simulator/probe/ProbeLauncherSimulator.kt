@@ -1,6 +1,6 @@
 package io.github.tomplum.aoc.simulator.probe
 
-import java.util.*
+import io.github.tomplum.libs.math.point.Point2D
 
 class ProbeLauncherSimulator(private val target: String) {
 
@@ -51,11 +51,39 @@ class ProbeLauncherSimulator(private val target: String) {
         return yOrdinates.maxOrNull() ?: 0
     }
 
+    fun calculateTotalDistinctInitialVelocityValues(): Set<Point2D> {
+        val validStartingVelocity = mutableSetOf<Point2D>()
+
+        for (xStartVelocity in 1 until 100) {
+            for (yStartVelocity in -50 until 100) {
+
+                var xVelocity = xStartVelocity
+                var yVelocity = yStartVelocity
+
+                var x = 0
+                var y = 0
+
+                while (!isWithinTargetArea(x, y) && !hasMissedTargetArea(x, y)) {
+                    x += xVelocity
+                    y += yVelocity
+                    xVelocity = if (xVelocity > 0) xVelocity - 1 else if (xVelocity < 0) xVelocity + 1 else 0
+                    yVelocity -= 1
+                }
+
+                if (isWithinTargetArea(x, y)) {
+                    validStartingVelocity.add(Point2D(xStartVelocity, yStartVelocity))
+                }
+            }
+        }
+
+        return validStartingVelocity
+    }
+
     private fun isWithinTargetArea(x: Int, y: Int): Boolean {
         return x in xMin..xMax && y >= yMin && y <= yMax
     }
 
     private fun hasMissedTargetArea(x: Int, y: Int): Boolean {
-        return x > xMax || y < yMax
+        return x > xMax || y < yMin
     }
 }
