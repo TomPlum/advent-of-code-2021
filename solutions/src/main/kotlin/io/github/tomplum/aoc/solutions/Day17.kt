@@ -8,12 +8,13 @@ import io.github.tomplum.libs.solutions.Solution
 class Day17 : Solution<Int, Int> {
 
     private val input = InputReader.read<String>(Day(17)).asSingleString()
+    private val simulator = ProbeLauncherSimulator(input)
 
     override fun part1(): Int {
-        return ProbeLauncherSimulator(input).calculateMaximumVerticalHeight()
+        return simulator.calculateMaximumVerticalHeight()
     }
 
     override fun part2(): Int {
-        return ProbeLauncherSimulator(input).calculateTotalDistinctInitialVelocityValues().size
+        return simulator.calculateTotalDistinctInitialVelocityValues()
     }
 }

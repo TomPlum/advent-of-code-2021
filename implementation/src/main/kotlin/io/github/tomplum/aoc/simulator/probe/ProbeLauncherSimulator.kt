@@ -22,9 +22,21 @@ class ProbeLauncherSimulator(target: String) {
         val yArea = coords[1].removePrefix("y=").split("..")
         yMin = yArea[0].toInt()
         yMax = yArea[1].toInt()
+    }
 
-        for (xStartVelocity in 1 until 1000) {
-            for (yStartVelocity in -100 until 1000) {
+    fun calculateMaximumVerticalHeight(): Int {
+        simulateProbeLauncher(1 until 100, 1 until 100)
+        return yOrdinates.maxOrNull() ?: 0
+    }
+
+    fun calculateTotalDistinctInitialVelocityValues(): Int {
+        simulateProbeLauncher(1 until 350, -76 until 100)
+        return validStartingVelocity.size
+    }
+
+    private fun simulateProbeLauncher(xVelocityRange: IntRange, yVelocityRange: IntRange) {
+        for (xStartVelocity in xVelocityRange) {
+            for (yStartVelocity in yVelocityRange) {
 
                 val yTrajectory = mutableSetOf<Int>()
                 var xVelocity = xStartVelocity
@@ -47,14 +59,6 @@ class ProbeLauncherSimulator(target: String) {
                 }
             }
         }
-    }
-
-    fun calculateMaximumVerticalHeight(): Int {
-        return yOrdinates.maxOrNull() ?: 0
-    }
-
-    fun calculateTotalDistinctInitialVelocityValues(): Set<Point2D> {
-        return validStartingVelocity
     }
 
     private fun isWithinTargetArea(x: Int, y: Int): Boolean {
