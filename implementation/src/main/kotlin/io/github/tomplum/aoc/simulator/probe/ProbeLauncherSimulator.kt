@@ -54,8 +54,8 @@ class ProbeLauncherSimulator(private val target: String) {
     fun calculateTotalDistinctInitialVelocityValues(): Set<Point2D> {
         val validStartingVelocity = mutableSetOf<Point2D>()
 
-        for (xStartVelocity in 1 until 100) {
-            for (yStartVelocity in -50 until 100) {
+        for (xStartVelocity in -50 until 1000) {
+            for (yStartVelocity in -100 until 1000) {
 
                 var xVelocity = xStartVelocity
                 var yVelocity = yStartVelocity
@@ -75,7 +75,7 @@ class ProbeLauncherSimulator(private val target: String) {
                 }
             }
         }
-
+        // 232 too low
         return validStartingVelocity
     }
 

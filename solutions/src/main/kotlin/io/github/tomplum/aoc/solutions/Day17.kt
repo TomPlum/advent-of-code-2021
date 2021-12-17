@@ -11,4 +11,10 @@ class Day17 : Solution<Int, Int> {
         val simulator = ProbeLauncherSimulator(input)
         return simulator.calculateMaximumVerticalHeight()
     }
+
+    override fun part2(): Int {
+        val input = InputReader.read<String>(Day(17)).asSingleString()
+        val simulator = ProbeLauncherSimulator(input)
+        return simulator.calculateTotalDistinctInitialVelocityValues().size
+    }
 }
