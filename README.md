@@ -55,7 +55,7 @@ tests in the `common`, `implementation` and `solutions` Gradle sub-projects as w
 | 14  | 2602          | 10ms     | 2942885922173 | 15ms     | [Extended Polymerization](docs/DAY14.MD) |
 | 15  | -             | -        | -             | -        | [](docs/DAY15.MD)                        |
 | 16  | -             | -        | -             | -        | [](docs/DAY16.MD)                        |
-| 17  | -             | -        | -             | -        | [](docs/DAY17.MD)                        |
+| 17  | 2850          | 1s 193ms | 1117          | 924ms    | [Trick Shot](docs/DAY17.MD)              |
 | 18  | -             | -        | -             | -        | [](docs/DAY18.MD)                        |
 | 19  | -             | -        | -             | -        | [](docs/DAY19.MD)                        |
 | 20  | -             | -        | -             | -        | [](docs/DAY20.MD)                        |
