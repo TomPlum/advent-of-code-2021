@@ -13,6 +13,18 @@ class PacketDecoderTest {
     }
 
     @Test
+    fun operatorLengthTypeID1() {
+        val decoder = PacketDecoder("EE00D40C823060")
+        assertThat(decoder.calculatePacketVersionNumberSum()).isEqualTo(16)
+    }
+
+    @Test
+    fun operatorLengthTypeID0() {
+        val decoder = PacketDecoder("38006F45291200")
+        assertThat(decoder.calculatePacketVersionNumberSum()).isEqualTo(16)
+    }
+
+    @Test
     fun partOneExampleOne() {
         val input = TestInputReader.read<String>("/day16/example-1.txt").asSingleString()
         val decoder = PacketDecoder(input)
