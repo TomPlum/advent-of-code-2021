@@ -24,8 +24,8 @@ class ProbeLauncherSimulator(private val target: String) {
     fun calculateMaximumVerticalHeight(): Int {
         val yOrdinates = mutableSetOf<Int>()
 
-        for (xStartVelocity in 1 until 15) {
-            for (yStartVelocity in 1 until 15) {
+        for (xStartVelocity in 1 until 100) {
+            for (yStartVelocity in 1 until 100) {
 
                 val yTrajectory = mutableSetOf<Int>()
                 var xVelocity = xStartVelocity
