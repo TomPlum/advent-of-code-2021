@@ -24,8 +24,8 @@ class PacketDecoder(private val transmission: String) {
     fun calculatePacketVersionNumberSum(): Int {
         val binary = transmission.map { char -> binaryMapping[char] }.joinToString("")
         val outermostPacket = Packet(binary)
-        val packets = outermostPacket.getSubPackets()
-        return packets.distinct().sumOf { packet -> packet.version }
+        val packets = outermostPacket.getSubPackets() + outermostPacket
+        return packets.sumOf { packet -> packet.version }
     }
 
     fun evaluateExpressionValue(): Int {
