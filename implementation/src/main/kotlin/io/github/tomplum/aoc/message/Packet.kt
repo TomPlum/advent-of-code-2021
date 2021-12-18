@@ -9,7 +9,7 @@ data class Packet(val data: String) {
     val id = UUID.randomUUID()
     val version = Integer.parseInt(data.take(3), 2)
     val type = if (Integer.parseInt(data.substring(3..5), 2) == 4) LITERAL else OPERATOR
-    val lengthType = if (data[6].toString().toInt() == 0) TOTAL_LENGTH else SUB_PACKET_QUANTIY
+    val lengthType = LengthType.fromInteger(data[6].toString().toInt())
     var literalValue: Int? = null
 
     fun getSubPackets(): List<Packet> = when(type) {
@@ -37,7 +37,7 @@ data class Packet(val data: String) {
         }
         OPERATOR -> {
             when(lengthType) {
-                TOTAL_LENGTH -> {
+                SUM -> {
                     val subPacketLength = Integer.parseInt(data.substring(7..21), 2)
                     val subPacketData = data.substring(22, 22 + subPacketLength)
                     val otherPacketData = data.substring(22 + subPacketLength).dropLastWhile { it == '0' }
@@ -47,7 +47,7 @@ data class Packet(val data: String) {
                         Packet(subPacketData).getSubPackets() + this
                     }
                 }
-                SUB_PACKET_QUANTIY -> {
+                PRODUCT -> {
                     val subPacketQuantity = Integer.parseInt(data.substring(8..17), 2)
                     val subPacketData = data.substring(18).dropLastWhile { value -> value == '0' }
                    /* subPacketData.dropLastWhile { value -> value == '0' }.chunked(subPacketData.length / subPacketQuantity).flatMap { binary ->
@@ -55,6 +55,7 @@ data class Packet(val data: String) {
                     }*/
                     Packet(subPacketData).getSubPackets() + this
                 }
+                else -> emptyList()
             }
         }
     }
