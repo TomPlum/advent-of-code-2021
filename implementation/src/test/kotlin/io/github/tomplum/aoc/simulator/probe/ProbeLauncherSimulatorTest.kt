@@ -17,6 +17,6 @@ class ProbeLauncherSimulatorTest {
     fun exampleTwo() {
         val input = TestInputReader.read<String>("/day17/example.txt").asSingleString()
         val simulator = ProbeLauncherSimulator(input)
-        assertThat(simulator.calculateTotalDistinctInitialVelocityValues().size).isEqualTo(112)
+        assertThat(simulator.calculateTotalDistinctInitialVelocityValues()).isEqualTo(112)
     }
 }
