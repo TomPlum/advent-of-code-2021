@@ -1,17 +1,12 @@
 package io.github.tomplum.aoc.message
 
 enum class LengthType {
-    SUM, PRODUCT, MIN, MAX, GREATER, LESS, EQUAL;
+    TOTAL_BIT_LENGTH, SUB_PACKET_QUANTITY;
 
     companion object {
-        fun fromInteger(value: Int) = when(value) {
-            0 -> SUM
-            1 -> PRODUCT
-            2 -> MIN
-            3 -> MAX
-            5 -> GREATER
-            6 -> LESS
-            7 -> EQUAL
+        fun fromValue(value: Int) = when(value) {
+            0 -> TOTAL_BIT_LENGTH
+            1 -> SUB_PACKET_QUANTITY
             else -> throw IllegalArgumentException("Invalid Length Type ID [$value]")
         }
     }
