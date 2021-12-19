@@ -10,7 +10,7 @@ data class Packet(val data: String) {
     val id = UUID.randomUUID()
     val version = Integer.parseInt(data.take(3), 2)
     val function = if (Integer.parseInt(data.substring(3..5), 2) == 4) LITERAL else OPERATOR
-    val lengthType = if (function === LITERAL) LITERAL_VALUE else PacketType.fromInteger(data[6].toString().toInt())
+    val lengthType = if (function === LITERAL) LITERAL_VALUE else PacketType.fromInteger(Integer.parseInt(data.substring(3..5), 2))
     val lengthTypeID = LengthType.fromValue(data[6].toString().toInt())
     var literalValue: Int? = null
     val children = mutableListOf<Packet>()
@@ -60,13 +60,13 @@ data class Packet(val data: String) {
 
     fun getValue(): Int = when(lengthType) {
         SUM -> getSubPackets().sumOf { it.literalValue ?: 0 }
-        PRODUCT -> children.map { packet -> packet.getValue() }.reduce { product, value -> product * value }
-        MIN -> children.minOf { packet -> packet.getValue() }
-        MAX -> children.maxOf { packet -> packet.getValue() }
+        PRODUCT -> getSubPackets().map { packet -> packet.literalValue ?: 0 }.reduce { product, value -> product * value }
+        MIN -> getSubPackets().minOfOrNull { packet -> packet.literalValue ?: 0 } ?: 0
+        MAX -> getSubPackets().maxOf { packet -> packet.literalValue ?: 0 }
         LITERAL_VALUE -> literalValue ?: 0
-        GREATER -> if (children[0].getValue() > children[1].getValue()) 1 else 0
-        LESS -> if (children[0].getValue() < children[1].getValue()) 1 else 0
-        EQUAL -> if (children[0].getValue() == children[1].getValue()) 1 else 0
+        GREATER -> if ((children[0].literalValue ?: 0) > (children[0].children[0].literalValue ?: 0)) 1 else 0
+        LESS -> if ((children[0].literalValue ?: 0) < (children[0].children[0].literalValue ?: 0)) 1 else 0
+        EQUAL -> if ((children[0].literalValue ?: 0) == (children[0].children[0].literalValue ?: 0)) 1 else 0
     }
 
     override fun equals(other: Any?): Boolean {
