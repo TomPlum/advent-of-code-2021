@@ -7,9 +7,9 @@ class Pixel(override val value: Char) : MapTile<Char>(value) {
 
     fun isDark() = value == '.'
 
-    fun toBinary(): Int = when(value) {
-        '.' -> 0
-        '#' -> 1
+    fun toBinary(step: Int): Char = when(value) {
+        '.' -> '0' //if (step % 2 == 0) '1' else '0'
+        '#' -> '1'
         else -> throw IllegalArgumentException("Invalid Pixel Value [$value]")
     }
 }

@@ -10,6 +10,6 @@ class ScannerTest {
     fun partOneExampleOne() {
         val input = TestInputReader.read<String>("/day20/example.txt").value
         val scanner = Scanner(input)
-        assertThat(scanner.enhanceImage()).isEqualTo(35)
+        assertThat(scanner.enhanceImage(2)).isEqualTo(35)
     }
 }

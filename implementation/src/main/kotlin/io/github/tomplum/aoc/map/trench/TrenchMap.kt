@@ -31,7 +31,7 @@ class TrenchMap(data: List<String>) : AdventMap2D<Pixel>() {
             Point2D(x - 1, y - 1), Point2D(x, y - 1), Point2D(x + 1, y - 1),
             Point2D(x - 1, y), position, Point2D(x + 1, y),
             Point2D(x - 1, y + 1), Point2D(x, y + 1), Point2D(x + 1, y + 1)
-        ).associateWith { pos -> getTile(pos, Pixel('.')) }.values.toList()
+        ).associateWith { pos -> getTile(pos, Pixel('?')) }.values.toList()
     }
 
     fun updatePixel(position: Point2D, pixel: Pixel) {
@@ -40,22 +40,24 @@ class TrenchMap(data: List<String>) : AdventMap2D<Pixel>() {
 
     fun countIlluminatedPixels(): Int = filterTiles { pixel -> pixel.isLight() }.count()
 
-    fun addNewSurroundingCells() {
-        val xMax = xMax()!!
-        val xMin = xMin()!!
-        val yMax = yMax()!!
-        val yMin = yMin()!!
+    fun addNewSurroundingCells(quantity: Int) {
+        val pixel = Pixel('?')
 
-        val darkPixel = Pixel('.')
+        repeat(quantity) {
+            val xMax = xMax()!!
+            val xMin = xMin()!!
+            val yMax = yMax()!!
+            val yMin = yMin()!!
 
-        (yMin - 1..yMax + 1).forEach { y ->
-            addTile(Point2D(xMin - 1, y), darkPixel)
-            addTile(Point2D(xMax + 1, y), darkPixel)
-        }
+            (yMin - 1..yMax + 1).forEach { y ->
+                addTile(Point2D(xMin - 1, y), pixel)
+                addTile(Point2D(xMax + 1, y), pixel)
+            }
 
-        (xMin..xMax).forEach { x ->
-            addTile(Point2D(x, yMin - 1), darkPixel)
-            addTile(Point2D(x, yMax + 1), darkPixel)
+            (xMin..xMax).forEach { x ->
+                addTile(Point2D(x, yMin - 1), pixel)
+                addTile(Point2D(x, yMax + 1), pixel)
+            }
         }
     }
 }
