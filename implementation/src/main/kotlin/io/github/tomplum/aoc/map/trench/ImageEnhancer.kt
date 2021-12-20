@@ -2,26 +2,21 @@ package io.github.tomplum.aoc.map.trench
 
 import io.github.tomplum.libs.logging.AdventLogger
 
-class ImageEnhancer(private val algorithm: String, val trenchMap: TrenchMap) {
-    fun applyEnhancementAlgorithm(times: Int): Int = repeat(times) { step ->
-        val keys = trenchMap.getPixels().keys
-        trenchMap.addNewSurroundingCells(1)
+class ImageEnhancer(private val algorithm: String, private val map: TrenchMap) {
+    fun applyEnhancementAlgorithm(times: Int): Int = (1..times).forEach { step ->
+        map.addNewSurroundingCells()
 
-        keys.map { position ->
-            val pixels = trenchMap.getSurroundingPixelSquare(position).map {
-                if (it.value == '?') {
-                    if ((step + 1) % 2 == 0) Pixel('#') else Pixel('.')
-                } else it
-            }
-            val binaryString = pixels.joinToString("") { value -> "${value.toBinary(step + 1)}" }
-            val algorithmIndex = binaryString.toInt(2)
-            val outputPixel = algorithm[algorithmIndex]
-            position to Pixel(outputPixel)
+        map.getPixelPositions().map { position ->
+            position to map.getSurroundingPixelSquare(position, step)
+                .joinToString("") { value -> value.toBinary().toString() }
+                .toInt(2)
+                .let { algorithmIndex -> algorithm[algorithmIndex] }
+                .let { value -> Pixel(value) }
         }.forEach { (position, updatedPixel) ->
-            trenchMap.updatePixel(position, updatedPixel)
+            map.updatePixel(position, updatedPixel)
         }
-        trenchMap.addNewSurroundingCells(1)
-        AdventLogger.debug("Image after ${step + 1} enhancements")
-        AdventLogger.debug(trenchMap)
-    }.run { trenchMap.countIlluminatedPixels() }
+
+        AdventLogger.debug("Image after $step enhancements")
+        AdventLogger.debug(map)
+    }.run { map.countIlluminatedPixels() }
 }

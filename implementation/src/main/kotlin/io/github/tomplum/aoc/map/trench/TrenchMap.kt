@@ -21,17 +21,20 @@ class TrenchMap(data: List<String>) : AdventMap2D<Pixel>() {
         AdventLogger.debug(this)
     }
 
-    fun getPixels() = getDataMap()
+    fun getPixelPositions() = getDataMap().keys
 
-    fun getSurroundingPixelSquare(position: Point2D): List<Pixel> {
-        val x = position.x
-        val y = position.y
+    fun getSurroundingPixelSquare(position: Point2D, step: Int): List<Pixel> {
+        val (x, y) = position
 
         return listOf(
             Point2D(x - 1, y - 1), Point2D(x, y - 1), Point2D(x + 1, y - 1),
             Point2D(x - 1, y), position, Point2D(x + 1, y),
             Point2D(x - 1, y + 1), Point2D(x, y + 1), Point2D(x + 1, y + 1)
-        ).associateWith { pos -> getTile(pos, Pixel('?')) }.values.toList()
+        ).associateWith { pos -> getTile(pos, Pixel('?')) }.values.toList().map { pixel ->
+            if (pixel.value == '?') {
+                if (step % 2 == 0) Pixel('#') else Pixel('.')
+            } else pixel
+        }
     }
 
     fun updatePixel(position: Point2D, pixel: Pixel) {
@@ -40,24 +43,22 @@ class TrenchMap(data: List<String>) : AdventMap2D<Pixel>() {
 
     fun countIlluminatedPixels(): Int = filterTiles { pixel -> pixel.isLight() }.count()
 
-    fun addNewSurroundingCells(quantity: Int) {
+    fun addNewSurroundingCells() {
         val pixel = Pixel('?')
 
-        repeat(quantity) {
-            val xMax = xMax()!!
-            val xMin = xMin()!!
-            val yMax = yMax()!!
-            val yMin = yMin()!!
+        val xMax = xMax()!!
+        val xMin = xMin()!!
+        val yMax = yMax()!!
+        val yMin = yMin()!!
 
-            (yMin - 1..yMax + 1).forEach { y ->
-                addTile(Point2D(xMin - 1, y), pixel)
-                addTile(Point2D(xMax + 1, y), pixel)
-            }
+        (yMin - 1..yMax + 1).forEach { y ->
+            addTile(Point2D(xMin - 1, y), pixel)
+            addTile(Point2D(xMax + 1, y), pixel)
+        }
 
-            (xMin..xMax).forEach { x ->
-                addTile(Point2D(x, yMin - 1), pixel)
-                addTile(Point2D(x, yMax + 1), pixel)
-            }
+        (xMin..xMax).forEach { x ->
+            addTile(Point2D(x, yMin - 1), pixel)
+            addTile(Point2D(x, yMax + 1), pixel)
         }
     }
 }
