@@ -1,8 +1,9 @@
-package io.github.tomplum.aoc.map
+package io.github.tomplum.aoc.map.height
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.tomplum.aoc.input.TestInputReader
+import io.github.tomplum.aoc.map.height.SafetyModule
 import org.junit.jupiter.api.Test
 
 class SafetyModuleTest {

@@ -1,4 +1,4 @@
-package io.github.tomplum.aoc.map
+package io.github.tomplum.aoc.map.height
 
 import io.github.tomplum.libs.math.point.Point2D
 
