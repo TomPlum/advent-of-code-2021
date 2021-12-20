@@ -11,4 +11,10 @@ class Day20 : Solution<Int, Int> {
         val scanner = Scanner(input)
         return scanner.enhanceImage(2)
     }
+
+    override fun part2(): Int {
+        val input = InputReader.read<String>(Day(20)).value
+        val scanner = Scanner(input)
+        return scanner.enhanceImage(50)
+    }
 }
