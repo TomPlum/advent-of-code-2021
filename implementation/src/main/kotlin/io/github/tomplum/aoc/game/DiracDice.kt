@@ -1,7 +1,5 @@
 package io.github.tomplum.aoc.game
 
-import io.github.tomplum.libs.logging.AdventLogger
-
 class DiracDice(data: List<String>) {
 
     private val playerOneStartingPosition = data[0].last().toString().toInt()
@@ -9,33 +7,23 @@ class DiracDice(data: List<String>) {
 
     fun play(): Int {
         var isPlayerOneTurn = true
+
         val die = DeterministicDie()
+        val playerOne = Player(playerOneStartingPosition)
+        val playerTwo = Player(playerTwoStartingPosition)
 
-        var playerOneScore = 0
-        var playerOnePosition = playerOneStartingPosition
-
-        var playerTwoScore = 0
-        var playerTwoPosition = playerTwoStartingPosition
-
-        while(playerOneScore < 1000 && playerTwoScore < 1000) {
-            val rolls = die.getNextThreeRolls()
+        while(playerOne.score < 1000 && playerTwo.score < 1000) {
+            val distance = die.getNextThreeRolls().sum()
             if (isPlayerOneTurn) {
-                playerOnePosition = movePosition(playerOnePosition, rolls.sum())
-                playerOneScore += playerOnePosition
+                playerOne.move(distance)
                 isPlayerOneTurn = false
             } else {
-                playerTwoPosition = movePosition(playerTwoPosition, rolls.sum())
-                playerTwoScore += playerTwoPosition
+                playerTwo.move(distance)
                 isPlayerOneTurn = true
             }
-
-            if (!isPlayerOneTurn) {
-                AdventLogger.debug("Player 1 rolls ${rolls.joinToString("+")} and moves to space $playerOnePosition for a total score of $playerOneScore")
-            } else {
-                AdventLogger.debug("Player 2 rolls ${rolls.joinToString("+")} and moves to space $playerTwoPosition for a total score of $playerTwoScore")
-            }
         }
-        return die.rolls * minOf(playerOneScore, playerTwoScore)
+
+        return die.rolls * minOf(playerOne.score, playerTwo.score)
     }
 
     fun playWithQuantumDice(): Long {
@@ -96,17 +84,5 @@ class DiracDice(data: List<String>) {
             wins += roll(playerOnePos, playerTwoPos, playerOneScore, playerTwoScore, 3, isPlayerOnesTurn, player)
         }
         return wins
-    }
-
-    private fun movePosition(position: Int, distance: Int): Int {
-        var newPosition = position + distance
-        if (newPosition > 10) {
-            newPosition %= 10
-        }
-
-        if (newPosition == 0) {
-            newPosition = 10
-        }
-        return newPosition
     }
 }
