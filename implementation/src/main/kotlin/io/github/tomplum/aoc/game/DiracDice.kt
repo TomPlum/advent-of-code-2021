@@ -8,9 +8,8 @@ class DiracDice(data: List<String>) {
     private val playerTwoStartingPosition = data[1].last().toString().toInt()
 
     fun play(): Int {
-        var dieRolls = 0
-        var dieValue = 1
         var isPlayerOneTurn = true
+        val die = DeterministicDie()
 
         var playerOneScore = 0
         var playerOnePosition = playerOneStartingPosition
@@ -19,7 +18,7 @@ class DiracDice(data: List<String>) {
         var playerTwoPosition = playerTwoStartingPosition
 
         while(playerOneScore < 1000 && playerTwoScore < 1000) {
-            val rolls = getDeterministicDiceRolls(dieValue)
+            val rolls = die.getNextThreeRolls()
             if (isPlayerOneTurn) {
                 playerOnePosition = movePosition(playerOnePosition, rolls.sum())
                 playerOneScore += playerOnePosition
@@ -29,15 +28,14 @@ class DiracDice(data: List<String>) {
                 playerTwoScore += playerTwoPosition
                 isPlayerOneTurn = true
             }
-            dieRolls += 3
-            dieValue += 3
+
             if (!isPlayerOneTurn) {
                 AdventLogger.debug("Player 1 rolls ${rolls.joinToString("+")} and moves to space $playerOnePosition for a total score of $playerOneScore")
             } else {
                 AdventLogger.debug("Player 2 rolls ${rolls.joinToString("+")} and moves to space $playerTwoPosition for a total score of $playerTwoScore")
             }
         }
-        return dieRolls * minOf(playerOneScore, playerTwoScore)
+        return die.rolls * minOf(playerOneScore, playerTwoScore)
     }
 
     fun playWithQuantumDice(): Long {
@@ -62,36 +60,6 @@ class DiracDice(data: List<String>) {
 
         return maxOf(playerOneWins, playerTwoWins)
     }
-
-    fun playToTwentyOne(): Int {
-        var dieRolls = 0
-        var dieValue = 1
-        var isPlayerOneTurn = true
-
-        var playerOneScore = 0
-        var playerOnePosition = playerOneStartingPosition
-
-        var playerTwoScore = 0
-        var playerTwoPosition = playerTwoStartingPosition
-
-        while(playerOneScore < 21 && playerTwoScore < 21) {
-            val rolls = getDeterministicDiceRolls(dieValue)
-            if (isPlayerOneTurn) {
-                playerOnePosition = movePosition(playerOnePosition, rolls.sum())
-                playerOneScore += playerOnePosition
-                isPlayerOneTurn = false
-            } else {
-                playerTwoPosition = movePosition(playerTwoPosition, rolls.sum())
-                playerTwoScore += playerTwoPosition
-                isPlayerOneTurn = true
-            }
-            dieRolls += 3
-            dieValue += 3
-        }
-
-        return if (playerOneScore > playerTwoScore) 1 else 2
-    }
-
 
     private fun roll(p1: Int, p2: Int, p1Score: Int, p2Score: Int, roll: Int, p1Turn: Boolean, player: Int): Long {
         var playerOnePos = p1
@@ -140,16 +108,5 @@ class DiracDice(data: List<String>) {
             newPosition = 10
         }
         return newPosition
-    }
-
-    private fun getDeterministicDiceRolls(dieValue: Int): List<Int> {
-        val rolls = mutableListOf<Int>()
-        repeat(3) {
-            rolls.add(dieValue)
-            if (dieValue > 100) {
-                //dieValue = 1
-            }
-        }
-        return rolls
     }
 }
