@@ -1,6 +1,7 @@
 package io.github.tomplum.aoc.navigation.chiton
 
 import io.github.tomplum.libs.math.point.Point2D
+import java.awt.Point
 import java.util.*
 
 class CaveNavigator(mapData: List<String>) {
@@ -21,6 +22,30 @@ class CaveNavigator(mapData: List<String>) {
     }
 
     fun calculateLowestRiskPath(): Int {
+        val origin = Point2D.origin()
+        val next: Queue<Point2D> = LinkedList(listOf(origin))
+        val shortest = mutableMapOf(origin to 0)
+
+        while (next.isNotEmpty()) {
+            val current = next.remove()
+            val distanceToCurrent = shortest.getOrDefault(current, 0)
+
+            current.orthogonallyAdjacent()
+                .filter { adj -> cavern.hasPosition(adj) }
+                .sortedBy { pos -> cavern.getRiskLevel(pos) }
+                .forEach { pos ->
+                    val newDistance = distanceToCurrent + cavern.getRiskLevel(pos)
+                    if (shortest[pos] == null || shortest[pos]!! > newDistance) {
+                        shortest[pos] = newDistance
+                        next.add(pos)
+                    }
+                }
+        }
+
+        return shortest.values.last()
+    }
+
+   /* fun calculateLowestRiskPath(): Int {
         val graph = cavern.getGraphRepresentation()
 
         val unsettled = PriorityQueue<Node> { a, b -> a.distance - b.distance }
@@ -44,5 +69,5 @@ class CaveNavigator(mapData: List<String>) {
         }
         //348 too low
         return graph[cavern.getBottomRightMostPoint()]?.distance ?: 0
-    }
+    }*/
 }
