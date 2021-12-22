@@ -19,4 +19,11 @@ class DiracDiceTest {
         val game = DiracDice(input)
         assertThat(game.playWithQuantumDice()).isEqualTo(444356092776315L)
     }
+
+    @Test
+    fun partTwoExample2() {
+        val input = TestInputReader.read<String>("/day21/example.txt").value
+        val game = DiracDice(input)
+        assertThat(game.playWithQuantumDice2()).isEqualTo(444356092776315L)
+    }
 }
