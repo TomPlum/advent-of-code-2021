@@ -53,7 +53,7 @@ tests in the `common`, `implementation` and `solutions` Gradle sub-projects as w
 | 12  | 4495          | 37ms     | 131254        | 593ms    | [Passage Pathing](docs/DAY12.MD)         |
 | 13  | 842           | 48ms     | BFKRCJZU      | 102ms    | [Transparent Origami](docs/DAY13.MD)     |
 | 14  | 2602          | 10ms     | 2942885922173 | 15ms     | [Extended Polymerization](docs/DAY14.MD) |
-| 15  | -             | -        | -             | -        | [](docs/DAY15.MD)                        |
+| 15  | 739           | -        | 3040          | -        | [Chiton](docs/DAY15.MD)                  |
 | 16  | -             | -        | -             | -        | [](docs/DAY16.MD)                        |
 | 17  | -             | -        | -             | -        | [](docs/DAY17.MD)                        |
 | 18  | -             | -        | -             | -        | [](docs/DAY18.MD)                        |
