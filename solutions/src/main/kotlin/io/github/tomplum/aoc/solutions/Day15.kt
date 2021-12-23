@@ -8,14 +8,15 @@ import io.github.tomplum.libs.input.InputReader
 import io.github.tomplum.libs.solutions.Solution
 
 class Day15 : Solution<Int, Int> {
+
+    private val input = InputReader.read<String>(Day(15)).value
+
     override fun part1(): Int {
-        val input = InputReader.read<String>(Day(15)).value
         val navigator = CaveNavigator(input, SmallCaveGeneration())
         return navigator.calculateLowestRiskPath()
     }
 
     override fun part2(): Int {
-        val input = InputReader.read<String>(Day(15)).value
         val navigator = CaveNavigator(input, LargeCaveGeneration())
         return navigator.calculateLowestRiskPath()
     }
