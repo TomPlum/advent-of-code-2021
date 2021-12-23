@@ -42,4 +42,29 @@ class ChitonCavern : AdventMap2D<CavernPosition>() {
     fun calculateTotalRiskLevel(points: Set<Point2D>): Int {
         return filterPoints(points).values.sumOf { position -> position.risk }
     }
+
+    /*fun discoverRemainingCavernLocations() {
+        val width = xMax()!!
+        val targetMax = width * 5
+        var originalSquare = getDataMap()
+        while(xMax()!! < targetMax) {
+            val xMax = xMax()!!
+            val yMax = yMax()!!
+            if (xMax < targetMax) {
+                val xRange = (xMax - width)..xMax
+                xRange.forEachIndexed { i, x ->
+                    val updatedPosition = Point2D(x, pos.y)
+                    val updatedRisk = if (tile.risk == 9) 0 else tile.risk + 1
+                }
+            }
+
+            var rightSquare = originalSquare.map { (pos, tile) ->
+                val updatedPosition = Point2D(pos.x + 1, pos.y)
+                val updatedRisk = if (tile.risk == 9) 0 else tile.risk + 1
+                updatedPosition to CavernPosition(updatedRisk)
+            }
+
+            rightSquare.forEach { (pos, risk) -> addTile(pos, risk) }
+        }
+    }*/
 }

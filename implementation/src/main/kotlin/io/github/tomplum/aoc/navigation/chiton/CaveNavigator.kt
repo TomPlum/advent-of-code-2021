@@ -9,11 +9,35 @@ class CaveNavigator(mapData: List<String>) {
     private val cavern = ChitonCavern()
 
     init {
-        var x = 0
+/*        var x = 0
         var y = 0
         mapData.forEach { row ->
             row.forEach { column ->
                 cavern.addRiskLevel(Point2D(x, y), CavernPosition(column.toString().toInt()))
+                x++
+            }
+            y++
+            x = 0
+        }*/
+
+
+        var x = 0
+        var y = 0
+        val width = mapData.first().length
+
+        mapData.forEach { row ->
+            row.forEach { column ->
+                val risk = column.toString().toInt()
+                (0 until 5).forEach { xTranslate ->
+                    (0 until 5).forEach { yTranslate ->
+                        val xPos = x + xTranslate * width
+                        val yPos = y + yTranslate * width
+                        val translateRisk = (risk + xTranslate + yTranslate)
+                        val normalisedRisk = if (translateRisk > 9) (translateRisk % 9) else translateRisk
+                        cavern.addRiskLevel(Point2D(xPos, yPos), CavernPosition(normalisedRisk))
+                    }
+                }
+
                 x++
             }
             y++
@@ -43,6 +67,10 @@ class CaveNavigator(mapData: List<String>) {
         }
 
         return shortest.values.last()
+    }
+
+    fun doThingPartTwo(): Int {
+        return 0
     }
 
    /* fun calculateLowestRiskPath(): Int {
