@@ -13,4 +13,6 @@ class AmphipodBurrow : AdventMap2D<BurrowTile>() {
         'D' -> getTile(Point2D(9, 2)).isFree() || getTile(Point2D(9, 3)).isFree()
         else -> throw IllegalArgumentException("Invalid Room ID [$room]")
     }
+
+    fun getFirstRoomSpaces() = filterPoints(setOf(Point2D(3,2), Point2D(5,2), Point2D(7,2), Point2D(9,2)))
 }
